@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split Title Scientific Matchmaker</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --border: #e2ddd6;
+    --text: #1a1814;
+    --muted: #8c8880;
+    --accent: #2d5a3d;
+    --accent-light: #e8f0eb;
+    --wrong: #c0392b;
+    --wrong-light: #fdf0ee;
+    --correct: #2d5a3d;
+    --correct-light: #e8f0eb;
+    --drag-over: #eaf4ee;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* INTRO SCREEN */
+  #intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .start-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .start-btn:hover { background: #234a32; transform: translateY(-1px); }
+  .start-btn:active { transform: translateY(0); }
+
+  /* GAME SCREEN */
+  #game { display: none; width: 100%; max-width: 1000px; }
+
+  .score-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    font-size: 13px;
+    color: var(--muted);
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .score-bar strong { color: var(--text); font-weight: 500; }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+
+  .col-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  /* COLUMNS — equal-height rows via CSS grid subgrid */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+
+  /* Each column shares the same implicit row grid so cards align */
+  .left-list,
+  .right-list {
+    display: grid;
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+
+  /* LEFT COLUMN — fixed items */
+  .left-item {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .left-item.correct { border-color: var(--correct); background: var(--correct-light); }
+  .left-item.wrong   { border-color: var(--wrong);   background: var(--wrong-light); }
+
+  .left-top { display: flex; align-items: center; gap: 10px; }
+  .left-text { flex: 1; }
+
+  /* DROP ZONE — sits inside .left-top, takes half the row width */
+  .drop-zone {
+    flex-shrink: 0;
+    width: 50%;
+    min-height: 44px;
+    border: 1.5px dashed var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    position: relative;
+  }
+
+  .drop-zone.drag-over {
+    background: var(--drag-over);
+    border-color: var(--accent);
+  }
+
+  .drop-zone .placeholder-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  /* RIGHT COLUMN — draggable chips */
+  .chip {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: grab;
+    user-select: none;
+    transition: box-shadow 0.15s, border-color 0.15s, opacity 0.15s, background 0.2s, color 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .chip:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .chip.dragging { opacity: 0.4; cursor: grabbing; }
+  /* Greyed out in right column once placed in a drop zone */
+  .chip.used-up {
+    opacity: 0.38;
+    background: var(--bg);
+    border-color: var(--border);
+    border-style: dashed;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Chip inside drop zone */
+  .drop-zone .chip {
+    width: 100%;
+    margin: 0;
+    font-size: 13px;
+    padding: 10px 12px;
+    cursor: default;
+    animation: none;
+    pointer-events: none;
+    opacity: 1;
+    border-style: solid;
+    background: var(--surface);
+  }
+  .drop-zone .chip:hover { box-shadow: none; }
+
+  /* RESULT CHIP */
+  .result-chip {
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-family: 'Libre Baskerville', serif;
+    line-height: 1.4;
+    width: 100%;
+    text-align: left;
+  }
+  .result-chip.correct { background: var(--correct-light); color: var(--correct); border: 1.5px solid var(--correct); }
+  .result-chip.wrong   { background: var(--wrong-light);   color: var(--wrong);   border: 1.5px solid var(--wrong); }
+
+  .correct-answer {
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: italic;
+    color: var(--wrong);
+    display: none;
+  }
+  .left-item.wrong .correct-answer { display: block; }
+
+  /* Link shown on correct match */
+  .paper-link {
+    display: none;
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .paper-link:hover { text-decoration: underline; }
+  .left-item.correct .paper-link { display: inline; }
+
+  /* ACTIONS */
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    padding: 12px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { background: var(--accent-light); }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #234a32; }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* RESULT SUMMARY */
+  #result-summary {
+    display: none;
+    text-align: center;
+    margin-bottom: 24px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .score-display {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .score-label {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 680px) {
+    .columns { grid-template-columns: 1fr; }
+    .drop-zone { width: 100%; min-height: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Scientific Literature</p>
+  <h1>Split Title Scientific <em>Matchmaker</em></h1>
+  <p class="subtitle">Can you reunite these split titles from scientific talks and papers? Drag the endings to the correct beginnings and check your score for a link to the work!</p>
+</header>
+
+<div id="intro">
+  <button class="start-btn" onclick="startGame()">Start Matching →</button>
+</div>
+
+<div id="game">
+  <div class="score-bar">
+    <span>Round <strong id="round-num">1</strong></span>
+    <span id="lifetime-score" style="display:none">Total score: <strong id="total-correct">0</strong> correct</span>
+  </div>
+
+  <div class="columns">
+    <div>
+      <div class="col-label">Beginning of title</div>
+      <div class="left-list" id="left-list"></div>
+    </div>
+    <div>
+      <div class="col-label">Ending — drag to match</div>
+      <div class="right-list" id="right-list"></div>
+    </div>
+  </div>
+
+  <div id="result-summary">
+    <div class="score-display" id="score-fraction"></div>
+    <div class="score-label">correct matches this round</div>
+  </div>
+
+  <div class="actions" id="actions">
+    <button class="btn primary" id="check-btn" onclick="checkAnswers()">Check my matches</button>
+    <button class="btn" id="clear-btn" onclick="clearDropZones()">Clear all</button>
+  </div>
+</div>
+
+<script>
+// Add titles and URLs here
+// Format: { first: "...", second: "..." }
+const ALL_PAPERS = [
+  { first: "Birds don't give a Dam:", second: "The politics of hydropower development and wildlife conservation in Arunachal Pradesh, url: "" },
+  { first: "Targeting cannabinoid signaling in the immune system:", second: ""High"-ly exciting questions, possibilities, and challenges, url: "" },
+  { first: "Evolution in the dark:", second: "Unifying understanding of eye loss, url: "" },
+  { first: "The battle of the bulge:", second: "Structural determinants of muscle gearing during dynamic contractions, url: "" },
+  { first: "Stiff-balls, stretchy-balls, soggy-balls:", second: "Structure-function comparisons of protective coatings on load-bearing muscle threads, url: "" },
+  { first: "50 shades of prey:", second: "Plastic sensory usage in prey capture, url: "" },
+  { first: "Sexy salamanders:", second: "Caudal courtship glands in plethodontids that lack mental glands, url: "" },
+  { first: "Not so fast food:", second: "Morphological speeds limits in the domestic turkey, url: "" },
+  { first: "Stay cool with a drop of drool:", second: "Evaporative cooling blowfly way, url: "" },
+  { first: "What's the point?:", second: "Form and function of the caudal barb in stingrays, url: "" },
+  { first: "Slice slice baby:", second: "A cross-sectional analysis of shark pectoral fin radials, url: "" },
+  { first: "Not your mama's tentacle:", second: "Molecular characterization of ctenophore colloblasts, url: "" },
+  { first: "Hoot's who?:", second: "A morphological comparason of eastern and western barred owl populations, url: "" },
+  { first: "Giant babies growing very fast:", second: "New insights on plesiosaur ontogeny, url: "" },
+  { first: "How to smell your sisters:", second: "Detection of cuticular hydrocarbon pheromones in ants, url: "" },
+  { first: "Dude looks like a lady:", second: "Evidence of sneaker males in cyprinid fish species, url: "" },
+  { first: "Living in a trash can:", second: "Drosophila flight control in turbulent covection cells, url: "" },
+  { first: "Baggy skin with benefits:", second: "How loose-fitting integuments can be adaptive, url: "" },
+  { first: "Oh deer, what's eating you?:", second: "Alabama white-tailed deers as resevoirs for vector borne disease, url: "" },
+  { first: "Why so many mammae, Mommy?:", second: "Testing the 1/2 rule in mammals, url: "" },
+  { first: "You lose, spidey!:", second: "Evidence for resistance to black window spiders in sympatric lizards, url: "" },
+  { first: "Pore things!:", second: "Cuticular gas exchange by Antarctic sea spiders, url: "" },
+  { first: "The long and short of it:", second: "Patterns of snout differentiation in four species of electric fishes, url: "" },
+  { first: "Crocodile fight club:", second: "Late ontogenetic development in osteoderms and their role in social behavior, url: "" },
+  { first: "Hot bog:", second: "The adaption of Daphnia magna to near lethal temperatures, url: "" },
+  { first: "Kv4 channels to kisspeptin neurons:", second: ""Let's (not) go steady", url: "" },
+  { first: "Exercising when sick:", second: "The role of pathogens on animal activity, url: "" },
+  { first: "You make me sick:", second: "Energetic signals regulating seasonal sickness responses, url: "" },
+  { first: "Is it mom's fault or dad's fault?:", second: "Effects of ocean acidification on gametes and fertilization success of the tropical sea urchin Heliocidaris crassispina, url: "" },
+  { first: "Promiscuity in marine turtles:", second: "Evolutionary push for population stability?, url: "" },
+  { first: "It's only a flesh wound!:", second: "Puncture force scaling in flatfishes, url: "" },
+  { first: "Home is where the gut is:", second: "Variation among mosquito species and their endosymbionts across different habitats, url: "" },
+  { first: "Kangaroo rat acrobatics:", second: "How to dodge a rattlesnake strike, url: "" },
+  { first: "Judging a bacterium by its cover:", second: "Differential hemocyte binding in the squid-vibrio symbiosis, url: "" },
+  { first: "Magnetic genetics:", second: "Sea turtle rookery genetic structures provide evidence for geomagnetic imprinting as a mechanism of natal homing, url: "" },
+  { first: "Strategic strikes:", second: "How mantis shrimp crack open different prey, url: "" },
+  { first: "How cool is this?!:", second: "Evaporative heat loss & the snake infrared imaging system, url: "" },
+  { first: "Murky waters:", second: "Effects of turbidity on the vision and behavior of longear sunfish, url: "" },
+  { first: "Getting a new head in life:", second: "The non-homology of the rotifer corona and infundibulum, url: "" },
+  { first: "Uptown squirrel:", second: "Tuning life to an urbanized world, url: "" },
+  { first: "Bird-bed bugs:", second: "Evaluating the effects of abundance vs. diversity of nest-dwelling bacteria on materal deposition of egg yolk antibodies in wild tree swallows, url: "" },
+  { first: "Breast is best:", second: "Exploring the differential effects of breat milk versus formula on the growth of neonate gut bacteria, url: "" },
+  { first: "The long winter:", second: "Oxidative stress and chill injury in the alfalfa leafcutting bee, Megachile rotundata, url: "" },
+  { first: "Testing the muth of humid versus dry cold:", second: "Bird's don't care, url: "" },
+  { first: "Who needs toe pads?:", second: "Climbing in plethodontid salamanders, url: "" },
+  { first: "Do you even lift?:", second: "Experimental investigation of the effect of head morphology on lift force generation in sharks, url: "" },
+  { first: "Friends with unexpected benefits:", second: "New discoveries on the roles and functions of marine chemosynthetic symbioses, url: "" },
+  { first: "Making the best of a bad situation:", second: "Males that lose a morphological weapon grow larger testes, url: "" },
+  { first: "Is smashing always a success?:", second: "How a smashing mantis shrimp consumes both hard-shelled and soft-bodied prey, url: "" },
+  { first: "Everyone digs:", second: "Burrowing biomechanics of pocket gophers, kangaroo rats, and pocket mice, url: "" },
+  { first: "Of moths and moon:", second: "Complicated phenological mismatch in a noctural aerial insectivore, url: "" },
+  { first: "Tail photoreception:", second: "Investigating a novel sensory system in Austrialian sea snakes, url: "" },
+  { first: "Restless roosts:", second: "Light pollution affects physiology and behavior in a free-living bird, url: "" },
+  { first: "Late to the party or noticing the wallflower?:", second: "Story of an apparent deep water octopus living in shallow water, url: "" },
+  { first: "We have soiled our nest:", second: "Now what?, url: "" },
+  { first: "Forceps and foreplay:", second: "Sexual selection in the maritime earwig, Anisolabis maritima, url: "" },
+  { first: "Gut turnover:", second: "An evolutionary adaptation to mouthbrooding in Astatotilpia burtoni, url: "" },
+  { first: "Repulsive accomodations:", second: "Caribbean spiny lobsters avoid dens with strong magnets, url: "" },
+  { first: "Shining a light on Prozac's effects on amphibians:", second: "Fluoxetine and its UV phototransformation products reduce growth and activity of toad tadpoles, url: "" },
+  { first: "A tale of two snails:", second: "Commensalism, parasitism, or "friends with benefits"?, url: "" },
+  { first: "A life of rhythm and blues:", second: "Correlates and changes in activity patterns and circadian rhythms in tropical slipper lobsters, url: "" },
+  { first: "Life's a drag:", second: "Comparative kinematics of swimming modes in anchovies and sardines, url: "" },
+  { first: "Sex determination in turtles:", second: "Is moisture playing a role?, url: "" },
+  { first: "Flatfish benthic walking:", second: "A new vertebrate gait, url: "" },
+  { first: "Hot and bothered:", second: "Maternal stress alters thermal sensitivity of metabolic rate in lizard embryos, url: "" },
+  { first: "Green anoles, brown bodies:", second: "Does the "loser effect" influence dorsal coloration in lizards?, url: "" },
+  { first: "Regressive evolution of the hagish visual system:", second: "Blind but hopeful monsters, url: "" },
+  { first: "Squirrels running on compliant branches:", second: "When to leap?, url: "" },
+  { first: "Clingfish inspired suction cups:", second: "Holding tight when it gets rough, url: "" },
+  { first: "Some don't like it hot:", second: "Variation in stingless bee flight performance as a function of air temperature, url: "" },
+  { first: "How to minimize accidental leakage:", second: "Cold-acclimated Drosophila have reduced paracellular permeability, url: "" },
+  { first: "To self or not to self:", second: "Reproductive strategies of the ctenophore, Mnemiopsis leidyi, url: "" },
+  { first: "Side-impact collision:", second: "Obstacle negotiation mechanics in sidewinding snakes, url: "" },
+  { first: "In sickness and in health:", second: "How do direct and indirect cues of infection influence pair bond maintenance, url: "" },
+  { first: "The speed of light:", second: "Duplication rates in the opsin family evolution, url: "" },
+  { first: "Drying but not dying:", second: "How do intertidal slug embryos survive environmental fluctuations?, url: "" },
+  { first: "The earliest animals did it alone:", second: "Reconstructing the ancestral reproductive state of Metazoa, url: "" },
+  { first: "Peeing poison:", second: "The biochemistry of bamboo lemur cyanide survival, url: "" },
+  { first: "Chill out:", second: "Mammalian herbivore use of microclimates when challenged by dietary plant toxins, url: "" },
+  { first: "Sociality in marine mammals:", second: "A re-evaluation of what is happening beneath the surface, url: "" },
+  { first: "When axolotls metamorphose:", second: "The kinematics of salamanders that shouldn't walk, url: "" },
+  { first: "Plants talking to bats:", second: "Chemical diversity of piper scents, url: "" },
+  { first: "Choosing a meal:", second: "Lizards differentially kill and consume native versus invasive ants, url: "" },
+  { first: "The heat is on:", second: "Decrease in avian sperm functionality at high ambient temperatures, url: "" },
+  { first: "Too many podia, too little coordination?:", second: "Sea stars on surface tension, url: "" },
+  { first: "Projecting tiny tongues:", second: "Performance consequences of miniaturization in salamanders, url: "" },
+  { first: "Wasp waist:", second: "A tail of abdominal flexion, sensing, actuation, and flight control, url: "" },
+  { first: "A little mouth with a lot of power:", second: "How cranial and axial muscles generate suction expansion in bluegill sunfish, url: "" },
+  { first: "Spiraling into control:", second: "Investigating the function of the spiral intestine in elasmobranchs, url: "" },
+  { first: "Time to panic?:", second: "Stressors modulate exploratory behavior in larval zebrafish, url: "" },
+  { first: "Never cry owl:", second: "Rails do not adjust vocal activity rates in response to predation risk, url: "" },
+  { first: "Honey, I ate the kids:", second: "Role of galanin in materal care, infanticide, and energetics in a mouthbrooding fish, url: "" },
+  { first: "Chimaeras, sharks, skates, and rays, oh my!:", second: "Ecological structuring and evolutionary life-history traits of chondrichthyes, url: "" },
+  { first: "Rodents of unusual size?:", second: "Fox squirrel (Sciurus niger) body mass at Saint Mary's College, url: "" },
+  { first: "The sniff of victory:", second: "The road to identify an aggressive male chemosignal in crayfish, url: "" },
+  { first: "Some like it hot:", second: "Do female songbirds discriminate between songs produced under hot and cold temperatures, url: "" },
+  { first: "The beak of the snake:", second: "Fang length evolution in vipers is predicted by diet, url: "" },
+  { first: "Making it big and losing friends:", second: "Algal symbiont contributions are shaped by sea anemone life history, url: "" },
+  { first: "A different kind of wax museum:", second: "Forecasting population trajectories of baleen whales using reproductive parameters from earplugs, url: "" },
+  { first: "Party in the front, business in the back:", second: "Mosaic evolution of skull asymmetry in flatfishes, url: "" },
+  { first: "One big, smelly family:", second: "Decoding the olfactory receptors in the Indian jumping ant, url: "" },
+  { first: "Work that body:", second: "Thrust generated by the fins and body contributes to the feeding success of herbivorous reef fish, url: "" },
+  { first: "Let's do the time-lag again:", second: "Ecologically relevant incubation temperatures delay the response of sex-determining genes in a turtle with TSD, url: "" },
+  { first: "Toes for any occasion:", second: "Morphological covariation and ecological signal within the gecko attachment system, url: "" },
+  { first: "Baby light my fire:", second: ""Cooperative inflammation" in marsupial pregnancy, url: "" },
+  { first: "To chew or not to chew:", second: "A comparison of the 3D kinematics of feeding and drinking in pigs, url: "" },
+  { first: "Should I stay or should I go now?:", second: "Predictors of facultative altitudinal migration in mountain white-crowned sparrows, url: "" },
+  { first: "You suck, we suck, everyone sucks:", second: "Homo sapiens display poor suction feeding performance, url: "" },
+  { first: "O anus where art thou?:", second: "An investigation of ctenostome bryozoans, url: "" },
+  { first: "A twisted tail of intrigue:", second: "Does fish vertebral morphology constrain locomotor mode?, url: "" },
+  { first: "Keep it simple stupid:", second: "Using simple models to explore how physical laws influence the evolution of biomechanical systems across clades, url: "" },
+  { first: "Are sloths horses hanging upside down?:", second: "Suspensory adaptations in sloth flexor tendons, url: "" },
+  { first: "Urine for a fight:", second: "Sex-based differences in crayfish contest signaling, url: "" },
+  { first: "The hardest part is letting go:", second: "Shear adhesion in the northern clingfish, url: "" },
+  { first: "Take my breath away:", second: "Mitonuclear mismatch disrupts hypoxia tolerance in Tigriopus californicus, url: "" },
+];
+
+const ROUND_SIZE = 10;
+let used = [];
+let round = 1;
+let totalCorrect = 0;
+let currentPapers = [];
+let draggedChip = null;
+let answered = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('game').style.display = 'block';
+  if (round > 1) {
+    document.getElementById('lifetime-score').style.display = 'block';
+  }
+  loadRound();
+}
+
+function loadRound() {
+  answered = false;
+  document.getElementById('result-summary').style.display = 'none';
+  document.getElementById('round-num').textContent = round;
+  document.getElementById('total-correct').textContent = totalCorrect;
+
+  // Reset buttons
+  document.getElementById('check-btn').style.display = '';
+  document.getElementById('check-btn').disabled = false;
+  document.getElementById('clear-btn').style.display = '';
+
+  // Pick papers
+  const available = ALL_PAPERS.filter((_, i) => !used.includes(i));
+  if (available.length < ROUND_SIZE) {
+    used = []; // reset pool if we've used everything
+  }
+  const pool = ALL_PAPERS.filter((_, i) => !used.includes(i));
+  const selected = shuffle(pool).slice(0, Math.min(ROUND_SIZE, pool.length));
+  currentPapers = selected;
+  selected.forEach(p => used.push(ALL_PAPERS.indexOf(p)));
+
+  const leftList = document.getElementById('left-list');
+  const rightList = document.getElementById('right-list');
+  leftList.innerHTML = '';
+  rightList.innerHTML = '';
+
+  // Build left items
+  selected.forEach((paper, idx) => {
+    const item = document.createElement('div');
+    item.className = 'left-item';
+    item.dataset.idx = idx;
+    item.style.animationDelay = `${idx * 40}ms`;
+    const linkHtml = paper.url
+      ? `<a class="paper-link" href="${paper.url}" target="_blank" rel="noopener">→ Read the work</a>`
+      : `<span class="paper-link" style="color:var(--muted);font-style:italic">→ link coming soon</span>`;
+    item.innerHTML = `
+      <div class="left-top">
+        <span class="left-text">${paper.first}</span>
+        <div class="drop-zone" data-idx="${idx}">
+          <span class="placeholder-text">drop here</span>
+        </div>
+      </div>
+      ${linkHtml}
+      <div class="correct-answer"></div>
+    `;
+    leftList.appendChild(item);
+  });
+
+  // Build right chips (shuffled)
+  const shuffledSeconds = shuffle(selected.map((p, i) => ({ text: p.second, origIdx: i })));
+  shuffledSeconds.forEach(({ text, origIdx }, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.draggable = true;
+    chip.dataset.origIdx = origIdx;
+    chip.textContent = text;
+    chip.style.animationDelay = `${i * 40}ms`;
+    chip.id = `chip-${origIdx}`;
+
+    chip.addEventListener('dragstart', onDragStart);
+    chip.addEventListener('dragend', onDragEnd);
+
+    rightList.appendChild(chip);
+  });
+
+  // Set up drop zones
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      e.preventDefault();
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', onDrop);
+  });
+}
+
+function onDragStart(e) {
+  draggedChip = e.target;
+  e.target.classList.add('dragging');
+  e.dataTransfer.setData('text/plain', e.target.dataset.origIdx);
+}
+
+function onDragEnd(e) {
+  e.target.classList.remove('dragging');
+  draggedChip = null;
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  const zone = e.currentTarget;
+  zone.classList.remove('drag-over');
+  if (!draggedChip) return;
+
+  // If zone already has a chip, restore it to the right list
+  const existing = zone.querySelector('.chip');
+  if (existing) {
+    const origId = existing.dataset.origIdx;
+    const rightChip = document.getElementById(`chip-${origId}`);
+    if (rightChip) rightChip.classList.remove('used-up');
+    zone.innerHTML = '<span class="placeholder-text">drop here</span>';
+  }
+
+  // Place a display clone in the drop zone
+  zone.querySelector('.placeholder-text')?.remove();
+  const cloneChip = draggedChip.cloneNode(true);
+  cloneChip.classList.remove('dragging', 'used-up');
+  cloneChip.draggable = false;
+  zone.appendChild(cloneChip);
+
+  // Grey out the source chip in the right column
+  draggedChip.classList.add('used-up');
+  draggedChip.draggable = false;
+  draggedChip = null;
+}
+
+function clearDropZones() {
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    const chip = zone.querySelector('.chip');
+    if (chip) {
+      const origId = chip.dataset.origIdx;
+      const rightChip = document.getElementById(`chip-${origId}`);
+      if (rightChip) {
+        rightChip.classList.remove('used-up');
+        rightChip.draggable = true;
+      }
+      zone.innerHTML = '<span class="placeholder-text">drop here</span>';
+    }
+  });
+}
+
+function checkAnswers() {
+  if (answered) return;
+  answered = true;
+
+  let correctCount = 0;
+  document.querySelectorAll('.left-item').forEach(item => {
+    const idx = parseInt(item.dataset.idx);
+    const zone = item.querySelector('.drop-zone');
+    const chip = zone.querySelector('.chip');
+    const placedIdx = chip ? parseInt(chip.dataset.origIdx) : null;
+
+    if (placedIdx === idx) {
+      item.classList.add('correct');
+      correctCount++;
+    } else {
+      item.classList.add('wrong');
+      const correctAns = item.querySelector('.correct-answer');
+      correctAns.textContent = '✓ ' + currentPapers[idx].second;
+      if (chip) {
+        chip.style.textDecoration = 'line-through';
+        chip.style.opacity = '0.5';
+      }
+    }
+  });
+
+  totalCorrect += correctCount;
+  document.getElementById('total-correct').textContent = totalCorrect;
+  document.getElementById('lifetime-score').style.display = 'block';
+
+  // Show result summary
+  const summary = document.getElementById('result-summary');
+  summary.style.display = 'block';
+  document.getElementById('score-fraction').textContent = `${correctCount} / ${currentPapers.length}`;
+
+  // Swap buttons
+  document.getElementById('check-btn').style.display = 'none';
+  document.getElementById('clear-btn').style.display = 'none';
+
+  // Add play again button
+  const actions = document.getElementById('actions');
+  const playBtn = document.createElement('button');
+  playBtn.className = 'btn primary';
+  playBtn.textContent = 'Play again →';
+  playBtn.onclick = () => {
+    round++;
+    playBtn.remove();
+    loadRound();
+  };
+  actions.appendChild(playBtn);
+}
+</script>
+</body>
+</html>
