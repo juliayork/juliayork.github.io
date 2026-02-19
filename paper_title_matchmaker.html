@@ -131,7 +131,7 @@
     padding-left: 2px;
   }
 
-  /* COLUMNS — equal-height rows via CSS grid subgrid */
+  /* COLUMNS — flat grid so each row's left+right card share the same height */
   .columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -140,13 +140,33 @@
     margin-bottom: 32px;
   }
 
-  /* Each column shares the same implicit row grid so cards align */
+  /* Card grid: both lists rendered as a single interleaved grid */
+  #card-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    align-items: stretch;
+  }
+
+  /* Column header row inside card-grid */
+  .col-label-cell {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-left: 2px;
+    padding-bottom: 4px;
+  }
+
   .left-list,
   .right-list {
-    display: grid;
-    grid-template-rows: auto;
-    gap: 10px;
+    display: none;
   }
+
+  /* Chip bank hidden on desktop, shown only on mobile */
+  #chip-bank { display: none; }
 
   /* LEFT COLUMN — fixed items */
   .left-item {
@@ -162,6 +182,7 @@
     justify-content: center;
     gap: 6px;
     animation: fadeUp 0.4s ease both;
+    align-self: stretch;
   }
 
   .left-item.correct { border-color: var(--correct); background: var(--correct-light); }
@@ -211,6 +232,9 @@
     user-select: none;
     transition: box-shadow 0.15s, border-color 0.15s, opacity 0.15s, background 0.2s, color 0.2s;
     animation: fadeUp 0.4s ease both;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
   }
 
   .chip:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
@@ -231,14 +255,40 @@
     margin: 0;
     font-size: 13px;
     padding: 10px 12px;
-    cursor: default;
+    padding-right: 28px;
+    cursor: grab;
     animation: none;
-    pointer-events: none;
+    pointer-events: auto;
     opacity: 1;
     border-style: solid;
     background: var(--surface);
+    position: relative;
   }
-  .drop-zone .chip:hover { box-shadow: none; }
+  .drop-zone .chip:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: var(--accent); }
+
+  /* Remove (×) button inside placed chips */
+  .chip-remove-btn {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: none;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+  .chip-remove-btn:hover { background: var(--wrong); color: #fff; }
 
   /* RESULT CHIP */
   .result-chip {
@@ -328,9 +378,97 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── MOBILE TAP-TO-SELECT ───────────────────────────────────────────── */
+
+  .chip.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 3px rgba(45,90,61,0.2);
+    cursor: pointer;
+  }
+
+  .drop-zone.selectable {
+    border-color: var(--accent);
+    background: var(--drag-over);
+    cursor: pointer;
+    animation: pulse-border 1.2s ease infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: var(--accent); }
+    50% { border-color: #8fbf9f; }
+  }
+
+  #mobile-hint {
+    display: none;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-style: italic;
+    padding: 6px 12px;
+    background: var(--accent-light);
+    border-radius: 4px;
+  }
+
   @media (max-width: 680px) {
-    .columns { grid-template-columns: 1fr; }
-    .drop-zone { width: 100%; min-height: 50px; }
+    body { padding: 28px 16px; }
+    header { margin-bottom: 28px; }
+    #mobile-hint { display: block; }
+
+    /* Single column grid */
+    #card-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    /* Hide desktop column labels */
+    .col-label-cell { display: none; }
+
+    /* Left items stack full width */
+    .left-item {
+      align-self: auto;
+    }
+
+    /* Drop zone below title text inside left-item */
+    .left-top {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .drop-zone {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 4px;
+      justify-content: flex-start;
+      padding: 8px 12px;
+    }
+
+    /* Chips in card-grid hide on mobile — shown in #chip-bank instead */
+    #card-grid > .chip { display: none; }
+
+    /* Chip bank renders below the left items */
+    #chip-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    #chip-bank .chip {
+      flex: 1 1 140px;
+      font-size: 13px;
+      padding: 10px 12px;
+      cursor: pointer;
+      animation: none;
+      align-self: auto;
+      white-space: normal;
+    }
+
+    .actions { flex-direction: column; align-items: stretch; }
+    .btn { text-align: center; }
   }
 </style>
 </head>
@@ -352,16 +490,16 @@
     <span id="lifetime-score" style="display:none">Total score: <strong id="total-correct">0</strong> correct</span>
   </div>
 
+  <p id="mobile-hint">Tap an answer below, then tap the matching title to place it</p>
+
   <div class="columns">
-    <div>
-      <div class="col-label">Beginning of title</div>
-      <div class="left-list" id="left-list"></div>
-    </div>
-    <div>
-      <div class="col-label">Ending — drag to match</div>
-      <div class="right-list" id="right-list"></div>
+    <div id="card-grid">
+      <div class="col-label-cell">Beginning of title</div>
+      <div class="col-label-cell">Ending — drag to match</div>
     </div>
   </div>
+
+  <div id="chip-bank"></div>
 
   <div id="result-summary">
     <div class="score-display" id="score-fraction"></div>
@@ -543,13 +681,20 @@ function loadRound() {
   currentPapers = selected;
   selected.forEach(p => used.push(ALL_PAPERS.indexOf(p)));
 
-  const leftList = document.getElementById('left-list');
-  const rightList = document.getElementById('right-list');
-  leftList.innerHTML = '';
-  rightList.innerHTML = '';
+  // Clear previous round cards from grid (keep label cells)
+  document.getElementById('card-grid').querySelectorAll('.left-item, .chip').forEach(el => el.remove());
 
-  // Build left items
+  // Build interleaved left+right cards into #card-grid directly
+  const cardGrid = document.getElementById('card-grid');
+  // Remove old cards (keep the two label cells)
+  cardGrid.querySelectorAll('.left-item, .chip').forEach(el => el.remove());
+
+  // Build right chips array (shuffled)
+  const shuffledSeconds = shuffle(selected.map((p, i) => ({ text: p.second, origIdx: i })));
+
+  // Interleave: left[i], right[i] pairs
   selected.forEach((paper, idx) => {
+    // LEFT ITEM
     const item = document.createElement('div');
     item.className = 'left-item';
     item.dataset.idx = idx;
@@ -567,24 +712,20 @@ function loadRound() {
       ${linkHtml}
       <div class="correct-answer"></div>
     `;
-    leftList.appendChild(item);
-  });
+    cardGrid.appendChild(item);
 
-  // Build right chips (shuffled)
-  const shuffledSeconds = shuffle(selected.map((p, i) => ({ text: p.second, origIdx: i })));
-  shuffledSeconds.forEach(({ text, origIdx }, i) => {
+    // RIGHT CHIP (paired by shuffled index)
+    const { text, origIdx } = shuffledSeconds[idx];
     const chip = document.createElement('div');
     chip.className = 'chip';
     chip.draggable = true;
     chip.dataset.origIdx = origIdx;
     chip.textContent = text;
-    chip.style.animationDelay = `${i * 40}ms`;
+    chip.style.animationDelay = `${idx * 40}ms`;
     chip.id = `chip-${origIdx}`;
-
     chip.addEventListener('dragstart', onDragStart);
     chip.addEventListener('dragend', onDragEnd);
-
-    rightList.appendChild(chip);
+    cardGrid.appendChild(chip);
   });
 
   // Set up drop zones
@@ -599,14 +740,65 @@ function loadRound() {
 }
 
 function onDragStart(e) {
-  draggedChip = e.target;
-  e.target.classList.add('dragging');
-  e.dataTransfer.setData('text/plain', e.target.dataset.origIdx);
+  // If this chip is inside a drop zone, we need to track it properly
+  draggedChip = e.currentTarget;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.setData('text/plain', e.currentTarget.dataset.origIdx);
 }
 
 function onDragEnd(e) {
-  e.target.classList.remove('dragging');
+  e.currentTarget.classList.remove('dragging');
+  // If chip is still in a drop zone after drag ended (dropped somewhere invalid), leave it
+  // If it was successfully dropped, onDrop already handled cleanup
   draggedChip = null;
+}
+
+function restoreChipFromZone(zone) {
+  const existing = zone.querySelector('.chip');
+  if (existing) {
+    const origId = existing.dataset.origIdx;
+    const rightChip = document.getElementById(`chip-${origId}`);
+    if (rightChip) {
+      rightChip.classList.remove('used-up');
+      rightChip.draggable = true;
+    }
+    zone.innerHTML = '<span class="placeholder-text">drop here</span>';
+  }
+}
+
+function placeChipInZone(zone, sourceChip) {
+  // If zone already occupied, restore that chip first
+  restoreChipFromZone(zone);
+
+  // Remove placeholder
+  zone.querySelector('.placeholder-text')?.remove();
+
+  // Clone chip into zone
+  const cloneChip = sourceChip.cloneNode(true);
+  cloneChip.classList.remove('dragging', 'used-up');
+  cloneChip.draggable = true;
+  cloneChip.style.position = 'relative';
+
+  // Add × remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'chip-remove-btn';
+  removeBtn.title = 'Remove';
+  removeBtn.innerHTML = '×';
+  removeBtn.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    restoreChipFromZone(zone);
+  });
+  cloneChip.appendChild(removeBtn);
+
+  // Allow dragging back out from drop zone
+  cloneChip.addEventListener('dragstart', onDragStart);
+  cloneChip.addEventListener('dragend', onDragEnd);
+
+  zone.appendChild(cloneChip);
+
+  // Grey out the source chip in the right column
+  sourceChip.classList.add('used-up');
+  sourceChip.draggable = false;
 }
 
 function onDrop(e) {
@@ -615,25 +807,69 @@ function onDrop(e) {
   zone.classList.remove('drag-over');
   if (!draggedChip) return;
 
-  // If zone already has a chip, restore it to the right list
+  const sourceZone = draggedChip.closest('.drop-zone');
+
+  if (sourceZone && sourceZone === zone) {
+    // Dropped back on same zone — no-op
+    draggedChip = null;
+    return;
+  }
+
+  // Clear the source zone if dragging from another drop zone
+  if (sourceZone) {
+    sourceZone.innerHTML = '<span class="placeholder-text">drop here</span>';
+    // Note: the right-column chip stays greyed out since we're just moving to another zone
+    // We need to find the actual right-column chip to keep it greyed
+  }
+
+  // Displace anything already in the target zone
   const existing = zone.querySelector('.chip');
   if (existing) {
     const origId = existing.dataset.origIdx;
+    // Only re-enable right column chip if the displaced chip came from the right column
+    // (not from another drop zone) — either way re-enable it
     const rightChip = document.getElementById(`chip-${origId}`);
-    if (rightChip) rightChip.classList.remove('used-up');
+    if (rightChip) {
+      rightChip.classList.remove('used-up');
+      rightChip.draggable = true;
+    }
     zone.innerHTML = '<span class="placeholder-text">drop here</span>';
   }
 
-  // Place a display clone in the drop zone
+  // Remove placeholder
   zone.querySelector('.placeholder-text')?.remove();
-  const cloneChip = draggedChip.cloneNode(true);
-  cloneChip.classList.remove('dragging', 'used-up');
-  cloneChip.draggable = false;
+
+  // Clone chip into zone
+  const cloneChip = document.createElement('div');
+  cloneChip.className = 'chip';
+  cloneChip.draggable = true;
+  cloneChip.dataset.origIdx = draggedChip.dataset.origIdx;
+  cloneChip.textContent = draggedChip.textContent.replace('×', '').trim(); // strip any old remove btn text
+  cloneChip.style.position = 'relative';
+
+  // Add × remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'chip-remove-btn';
+  removeBtn.title = 'Remove';
+  removeBtn.innerHTML = '×';
+  removeBtn.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    restoreChipFromZone(zone);
+  });
+  cloneChip.appendChild(removeBtn);
+
+  // Allow re-dragging from drop zone
+  cloneChip.addEventListener('dragstart', onDragStart);
+  cloneChip.addEventListener('dragend', onDragEnd);
+
   zone.appendChild(cloneChip);
 
-  // Grey out the source chip in the right column
-  draggedChip.classList.add('used-up');
-  draggedChip.draggable = false;
+  // If dragged from right column (not another drop zone), grey it out
+  if (!sourceZone) {
+    draggedChip.classList.add('used-up');
+    draggedChip.draggable = false;
+  }
+
   draggedChip = null;
 }
 
@@ -647,8 +883,8 @@ function clearDropZones() {
         rightChip.classList.remove('used-up');
         rightChip.draggable = true;
       }
-      zone.innerHTML = '<span class="placeholder-text">drop here</span>';
     }
+    zone.innerHTML = '<span class="placeholder-text">drop here</span>';
   });
 }
 
@@ -702,6 +938,180 @@ function checkAnswers() {
   };
   actions.appendChild(playBtn);
 }
+
+// ─── MOBILE TAP-TO-SELECT ──────────────────────────────────────────────────
+
+const isMobile = () => window.matchMedia('(max-width: 680px)').matches;
+let selectedChip = null; // the currently tapped chip (mobile)
+
+function buildChipBank(shuffledSeconds) {
+  const bank = document.getElementById('chip-bank');
+  bank.innerHTML = '';
+  shuffledSeconds.forEach(({ text, origIdx }) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.dataset.origIdx = origIdx;
+    chip.id = `chip-${origIdx}`;
+    chip.textContent = text;
+    chip.addEventListener('click', onChipTap);
+    bank.appendChild(chip);
+  });
+}
+
+function onChipTap(e) {
+  if (!isMobile()) return;
+  const chip = e.currentTarget;
+  if (chip.classList.contains('used-up')) return;
+
+  // Deselect if tapping the same chip
+  if (selectedChip === chip) {
+    deselectChip();
+    return;
+  }
+
+  deselectChip();
+  selectedChip = chip;
+  chip.classList.add('selected');
+
+  // Make all empty drop zones "selectable"
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.classList.add('selectable');
+    zone.addEventListener('click', onZoneTap);
+  });
+}
+
+function onZoneTap(e) {
+  if (!isMobile() || !selectedChip) return;
+  e.stopPropagation();
+  const zone = e.currentTarget;
+
+  // Place chip in zone
+  dropChipMobile(zone, selectedChip);
+  deselectChip();
+}
+
+function dropChipMobile(zone, chip) {
+  // If zone already has a chip, restore it to the bank
+  const existing = zone.querySelector('.chip');
+  if (existing) {
+    const origId = existing.dataset.origIdx;
+    const bankChip = document.getElementById(`chip-${origId}`);
+    if (bankChip) {
+      bankChip.classList.remove('used-up');
+    }
+    zone.innerHTML = '<span class="placeholder-text">tap to place</span>';
+  }
+
+  zone.querySelector('.placeholder-text')?.remove();
+
+  // Build a placed chip display inside the zone
+  const cloneChip = document.createElement('div');
+  cloneChip.className = 'chip';
+  cloneChip.dataset.origIdx = chip.dataset.origIdx;
+  cloneChip.style.position = 'relative';
+  cloneChip.textContent = chip.textContent;
+
+  // × remove button
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'chip-remove-btn';
+  removeBtn.title = 'Remove';
+  removeBtn.innerHTML = '×';
+  removeBtn.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    restoreChipFromZone(zone);
+  });
+  cloneChip.appendChild(removeBtn);
+
+  zone.appendChild(cloneChip);
+
+  // Grey out the bank chip
+  chip.classList.add('used-up');
+  chip.classList.remove('selected');
+}
+
+function deselectChip() {
+  if (selectedChip) {
+    selectedChip.classList.remove('selected');
+    selectedChip = null;
+  }
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.classList.remove('selectable');
+    zone.removeEventListener('click', onZoneTap);
+  });
+}
+
+// Tap anywhere else to deselect
+document.addEventListener('click', (e) => {
+  if (!isMobile()) return;
+  if (!e.target.closest('.chip') && !e.target.closest('.drop-zone')) {
+    deselectChip();
+  }
+});
+
+// Override restoreChipFromZone to also re-enable bank chips on mobile
+const _origRestore = restoreChipFromZone;
+restoreChipFromZone = function(zone) {
+  const existing = zone.querySelector('.chip');
+  if (existing && isMobile()) {
+    const origId = existing.dataset.origIdx;
+    const bankChip = document.getElementById(`chip-${origId}`);
+    if (bankChip) {
+      bankChip.classList.remove('used-up');
+    }
+    zone.innerHTML = '<span class="placeholder-text">tap to place</span>';
+    return;
+  }
+  _origRestore(zone);
+};
+
+// Override clearDropZones to also restore bank chips
+const _origClear = clearDropZones;
+clearDropZones = function() {
+  if (isMobile()) {
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+      const chip = zone.querySelector('.chip');
+      if (chip) {
+        const origId = chip.dataset.origIdx;
+        const bankChip = document.getElementById(`chip-${origId}`);
+        if (bankChip) bankChip.classList.remove('used-up');
+      }
+      zone.innerHTML = '<span class="placeholder-text">tap to place</span>';
+    });
+    deselectChip();
+    return;
+  }
+  _origClear();
+};
+
+// Override loadRound to also build the chip bank on mobile
+const _origLoadRound = loadRound;
+loadRound = function() {
+  deselectChip();
+  _origLoadRound();
+  if (isMobile()) {
+    // Collect all chips from the card-grid (they're hidden on mobile via CSS)
+    // and populate the chip bank
+    const chips = [...document.querySelectorAll('#card-grid > .chip')];
+    const bank = document.getElementById('chip-bank');
+    bank.innerHTML = '';
+    chips.forEach(chip => {
+      const bankChip = document.createElement('div');
+      bankChip.className = 'chip';
+      bankChip.dataset.origIdx = chip.dataset.origIdx;
+      bankChip.id = chip.id;
+      bankChip.textContent = chip.textContent;
+      bankChip.addEventListener('click', onChipTap);
+      bank.appendChild(bankChip);
+      // Remove the hidden grid chip to avoid duplicate IDs
+      chip.removeAttribute('id');
+    });
+    // Update placeholder text to "tap to place"
+    document.querySelectorAll('.drop-zone .placeholder-text').forEach(el => {
+      el.textContent = 'tap to place';
+    });
+  }
+};
+
 </script>
 </body>
 </html>
