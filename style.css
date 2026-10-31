@@ -1,0 +1,156 @@
+/* ============================================================
+   STYLE.CSS: how the site looks
+   Most things you'll want to change are in the first block (:root).
+   Change a value there and it updates everywhere on the site.
+   ============================================================ */
+
+:root {
+  /* ---- COLORS (edit the hex codes) ---- */
+  --ink:      #0e2a3b;  /* dark ocean blue: headings, hero overlay */
+  --text:     #23323c;  /* body text */
+  --muted:    #5d6e79;  /* captions, small notes */
+  --accent:   #1b6b7b;  /* teal: links, buttons, project edges */
+  --accent-dark: #124c59; /* hover color for links/buttons */
+  --glacier:  #eef4f6;  /* pale blue-grey background for alternate sections */
+  --white:    #ffffff;
+
+  /* ---- FONTS ---- */
+  --font-head: 'Libre Baskerville', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* ---- HERO PHOTO: change the filename to use a different background photo ---- */
+  --hero-photo: url('images/pic01.jpg');
+
+  /* ---- LAYOUT ---- */
+  --nav-height: 60px;
+  --max-width: 1040px;   /* width of the main content */
+  --narrow-width: 720px; /* width of text-only sections */
+}
+
+/* ---------- Basics ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--white);
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--font-head); color: var(--ink); font-weight: 400; line-height: 1.25; }
+h2 { font-size: 2rem; margin: 0 0 1.2rem; }
+h3 { font-size: 1.3rem; margin: 0 0 .6rem; }
+
+/* ---------- Navigation bar ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  height: var(--nav-height);
+  background: rgba(255,255,255,.95);
+  border-bottom: 1px solid #d8e2e7;
+}
+.nav {
+  max-width: var(--max-width); height: 100%;
+  margin: 0 auto; padding: 0 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-name { font-family: var(--font-head); color: var(--ink); text-decoration: none; font-size: 1.05rem; }
+.nav-links { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; font-size: .95rem; }
+.nav-links a { color: var(--text); text-decoration: none; padding: .3rem 0; border-bottom: 2px solid transparent; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); border-bottom-color: var(--accent); }
+/* The Title Matchmaker tab gets an outline so it reads as "a different page" */
+.nav-links a.nav-game { border: 1.5px solid var(--accent); border-radius: 4px; padding: .25rem .7rem; color: var(--accent); }
+.nav-links a.nav-game:hover { background: var(--accent); color: var(--white); }
+.nav-toggle { display: none; } /* only shown on phones, see bottom of file */
+
+/* ---------- Hero ---------- */
+.hero {
+  /* dark gradient over the photo keeps the white text readable on any photo */
+  background:
+    linear-gradient(100deg, rgba(14,42,59,.92) 20%, rgba(14,42,59,.45)),
+    var(--hero-photo) center / cover no-repeat,
+    var(--ink); /* fallback color if the photo is missing */
+  color: var(--white);
+  padding: 6rem 1.25rem 5rem;
+  min-height: 70vh;
+  display: flex; align-items: center;
+}
+.hero-inner { max-width: var(--max-width); width: 100%; margin: 0 auto; }
+.hero h1 { color: var(--white); font-size: clamp(2.1rem, 5.5vw, 3.7rem); max-width: 16em; margin: 0 0 1.2rem; }
+.hero-id { font-size: .95rem; opacity: .85; margin: 0 0 2.5rem; }
+.hero-lead { font-size: 1.2rem; max-width: 36em; margin: 0 0 1.8rem; }
+.hero-links { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; list-style: none; padding: 0; margin: 0; }
+.hero-links a { color: var(--white); }
+
+/* ---------- Sections ---------- */
+.section { padding: 5rem 1.25rem; }
+.section.tinted { background: var(--glacier); }   /* alternate background */
+.wrap { max-width: var(--max-width); margin: 0 auto; }
+.wrap.narrow { max-width: var(--narrow-width); }
+.intro { max-width: 46em; font-size: 1.1rem; margin-bottom: 3.5rem; }
+
+/* ---------- Research projects (photo + text, side by side) ---------- */
+.project {
+  display: grid; grid-template-columns: 5fr 7fr; gap: 2.5rem;
+  align-items: center; margin-bottom: 3.5rem;
+}
+.project.flip { grid-template-columns: 7fr 5fr; }
+.project.flip figure { order: 2; }               /* moves photo to the right */
+.project figure { margin: 0; }
+.project img { width: 100%; border-radius: 4px; }
+figcaption { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+.project.featured > div { border-left: 4px solid var(--accent); padding-left: 1.5rem; }
+.funding { font-size: .92rem; color: var(--muted); }
+.paper { font-size: .92rem; }
+
+/* ---------- Photo gallery ---------- */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
+
+/* ---------- CV highlights grid (4 blocks; becomes 1 column on phones automatically) ---------- */
+.cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem 3rem; margin: 2.5rem 0 1.5rem; }
+.cv-grid h3 { font-size: 1.1rem; }
+.cv-grid ul { padding-left: 1.1rem; font-size: .95rem; margin: 0; }
+.cv-grid li { margin-bottom: .5rem; }
+
+/* ---------- Lists, buttons, about ---------- */
+.pubs { padding-left: 1.2rem; }
+.pubs li, .section li { margin-bottom: .9rem; }
+.button {
+  display: inline-block; background: var(--accent); color: var(--white);
+  padding: .75rem 1.6rem; border-radius: 4px; text-decoration: none; font-weight: 500;
+}
+.button:hover { background: var(--accent-dark); color: var(--white); }
+.about { display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: start; }
+.portrait { width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
+.footer { background: var(--ink); color: #b9c8d1; text-align: center; padding: 2rem 1rem; font-size: .9rem; }
+.footer p { margin: 0; }
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 820px) {
+  .nav-toggle {
+    display: block; background: none; border: 1.5px solid var(--accent); color: var(--accent);
+    border-radius: 4px; padding: .35rem .9rem; font: inherit; cursor: pointer;
+  }
+  .nav-links {
+    display: none; /* hidden until the Menu button is tapped (script.js adds "open") */
+    position: absolute; top: var(--nav-height); left: 0; right: 0;
+    flex-direction: column; gap: 0; background: var(--white);
+    border-bottom: 1px solid #d8e2e7; padding: .5rem 1.25rem 1rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: .6rem 0; }
+  .nav-links a.nav-game { display: inline-block; margin-top: .5rem; }
+  .project, .project.flip, .about { grid-template-columns: 1fr; gap: 1.2rem; }
+  .project.flip figure { order: 0; }
+  .section { padding: 3.5rem 1.25rem; }
+}
+
+/* Respect visitors who turn off animations in their system settings */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
