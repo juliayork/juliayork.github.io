@@ -1,669 +1,292 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!--
-	Read Only by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  ============================================================
+  JULIA YORK – ACADEMIC WEBSITE  (index.html)
+  ============================================================
+  HOW THIS SITE IS ORGANIZED
+    index.html  = the content (text, links, image names)  <- you edit this most
+    style.css   = colors, fonts, spacing                  <- change the look here
+    script.js   = small helper for the mobile menu
+  Keep all three files in the same folder as your "images" folder.
+
+  QUICK EDIT GUIDE
+    * Change text: find it below and type over it (keep the <tags> intact).
+    * Change a photo: edit the src="images/..." filename.
+    * Change a link: edit the href="..." address.
+    * Search this file for "EDIT:" to jump to the spots you will change most.
+    * Anything between <!-- and --><!-- (like this block) is a comment; visitors never see it.
 -->
-<html>
-	<head>
-		<title>Dr. Julia M. York</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.5, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- EDIT: the text shown in the browser tab and in Google results -->
+  <title>Dr. Julia M. York | Thermosensation in polar fishes</title>
+  <meta name="description" content="Julia York studies the evolution of temperature sensation in Arctic and Antarctic fishes.">
 
-		<!-- Header -->
-			<section id="header">
-				<header>
-					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
-					<h1 id="logo"><a href="#">Dr. Julia M. York</a></h1>
-					<p>Postdoctoral Fellow<br />
-					Department of Evolution, Ecology, and Behavior<br />
-					School of Integrative Biology<br />
-					University of Illinois Urbana-Champaign<br />
-					</p>
-				</header>
-				<nav id="nav">
-					<ul>
-						<li><a href="#one" class="active">Research</a></li>
-						<li><a href="#two">CV</a></li>
-						<li><a href="#three">Engagement</a></li>
-						<li><a href="#four">Inclusion</a></li>
-						<li><a href="#five">About</a></li>
-						<li><a href="#six">Contact</a></li>
-					</ul>
-				</nav>
-				<footer>
-					<ul class="icons">
-						<!-- twitter <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li> -->
-						<!-- facebook <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-						<li><a href="https://scholar.google.com/citations?hl=en&user=Um6EFW4AAAAJ" target="_blank" class="icon solid fa-graduation-cap"><span class="label">Google Scholar</span></a></li>
-						<li><a href="https://www.researchgate.net/profile/Julia_York" target="_blank" class="icon brands fa-researchgate"><span class="label">ResearchGate</span></a></li>
-						<li><a href="https://www.linkedin.com/in/julia-m-york-33bb1997/" target="_blank" class="icon brands fa-linkedin-in"><span class="label">Linked In</span></a></li>
-						<li><a href="https://github.com/juliayork" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<!-- email <li><a href="jmy@illinois.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li> -->
-					</ul>
-				</footer>
-			</section>
+  <!-- Fonts: same two as your Title Matchmaker page, so the site feels consistent -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!-- ============ NAVIGATION BAR (sticks to top of screen) ============ -->
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="nav-name" href="#top">Julia M. York</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul class="nav-links" id="nav-links">
+      <!-- EDIT: each <li> is one tab. href="#research" scrolls to the section with id="research" below. -->
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#engagement">Engagement &amp; Service</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <!-- The tab that opens your game. It leaves this page, so there is no "#". -->
+      <li><a href="paper_title_matchmaker.html" class="nav-game">Title Matchmaker Game</a></li>
+    </ul>
+  </nav>
+</header>
 
-				<!-- Main -->
-					<div id="main">
-					
-						<!-- One Research -->
-							<section id="one">
-								<div class="image main" data-position="center">
-									<img src="images/transcript_tree3.raxml.png" alt="" />
-								</div>
-								<div class="container">
-									<h3>Research</h3>
-									<p>How does thermosensation evolve? As thermal environments shift, how do sensory systems adapt? 
-									I study this question by investigating TRP channels, a family of ion channels than can function as molecular thermosensors by turning temperature stimuli into electrical signals. 
-									I combine transcriptomics, genomics, bioinformatics, electrophysiology, fieldwork, and behavior studies to answer these questions across integrated levels of organization in both vertebrates and invertebrates.</p>
-									<div class="features">
-										<article>
-											<a href="#" class="image"><img src="images/PRF graphical abstract_new arrow.png" alt="" /></a>
-											<div class="inner">
-												<h4>Arctic codfishes</h4>
-												<p>Some areas of the Arctic Ocean are warming up to seven fold the rate of the global average. 
-												Warming endangers key subsistence and commericial fisheries and fish populations. 
-												I am studying the evolution of TRP channel sequences, expression, and structures in different thermosensory tissues across Arctic codfishes that vary in their preferred thermal environments. 
-												This study is funded by the National Science Foundation Office of Polar Programs postdoctoral research fellowship.
-												</p>
-											</div>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-											<div class="inner">
-												<h4>Notothenioid fishes</h4>
-												<p>Notothenioids are a suborder of fishes that make up the primary fish fauna of the Southern Ocean. 
-												The Southern Ocean surrounds Antarctica and generally stays between -1.9 and +1 degree Celsius all year, and has been this cold for several million years. 
-												I am investigating how TRP channels have evolved to sense ecologically relevant temperatures for the Southern Ocean and comparing evolution of these channels in species that have secondarily adapted to temperate environments.
-												This study is funded by the Fulbright Commission and will be conducted at the Universidad Austral de Chile and in the Chilean Antarctic.
-												<br>(Left) <em>Harpagifer antarcticus</em>, the Antarctic spiny plunderfish <br>
-												<ul>
-													<li><a href="https://academic.oup.com/gbe/article/14/2/evac009/6519823" target="_blank">York and Zakon. 2022. Evolution of transient receptor potential (TRP) ion channels in Antarctic fishes (Cryonotothenioidea) and identification of putative thermosensors. <em>Genome Biology and Evolution.</em></a></li>
-												</ul></p>
-											</div>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-											<div class="inner">
-												<h4>Texas leaf-cutter ants</h4>
-												<p>The Texas leaf-cutter ant (<em>Atta texana</em>) is the most northerly distributed leaf-cutter ant, but the distribution isn't limited by the ants' own temperature tolerance.
-												 Instead, it is limited by the cold sensitivity of the fungus the ants cultivate in gardens within their colonies. These ants have been shown to be 
-												 behaviorally sensitive to the narrow range in temperatures at which the fungus grows optimally, but what is the molecular basis of this temperature sensitivity, 
-												 and how has that changed as the Texas leaf-cutters have expanded their range northward? 
-												 <br>(Left) An entrance to an <em>Atta texana</em> colony</p>
-											</div>
-										</article>
-										<article>
-										<h4>Previous work</h4>
-										<ul>
-											<li><strong>Acetylcholine receptor evolution in poison frogs</strong>: <br>
-											<a href="https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-023-01637-8" target="_blank">York <em>et al.</em>, 2023. A potential cost of evolving epibatidine resistance in poison frogs. <em>BMC Biology</em>.</a></li>
-											<li><strong>Potassium channel evolution in weakly electric fish</strong>: <br>
-											<a href="https://www.cell.com/current-biology/fulltext/S0960-9822(18)30614-6" target="_blank">Swapna <em>et al.</em>, 2018. Electrostatic tuning of a potassium channel in electric fish. <em>Current Biology</em>.</a></li>
-											<li><strong>Respiratory mechanics of high-altitude waterfowl</strong>: <br>
-											<a href="https://jeb.biologists.org/content/220/6/1079" target="_blank">York <em>et al.</em>, 2017. Respiratory mechanics of eleven avian species resident at high and low altitude. <em>Journal of Experimental Biology</em>;</a><br>
-											<a href="https://jeb.biologists.org/content/222/1/jeb198440" target="_blank"><strong>Shortlisted for JEB's 2018 Outstanding Paper Prize</strong></a>: <a href="https://jeb.biologists.org/content/221/1/jeb170738" target="_blank">York <em>et al.</em>, 2018. Respiratory mechanics and morphology of Tibetan and Andean high-altitude geese with divergent life histories. <em>Journal of Experimental Biology</em></a>; <br>
-											<a href="https://www.journals.uchicago.edu/doi/abs/10.1086/697053" target="_blank">Ivy and York <em>et al.</em>, 2018. Validation of a pulse oximetry system for high-altitude waterfowl by examining the hypoxia responses of the Andean goose (<em>Chloephaga melanoptera</em>). <em>Physiological and Biochemical Zoology</em>;</a><br>
-											<a href="https://jeb.biologists.org/content/219/23/3719" target="_blank">Dawson <em>et al.</em>, 2016. Mitochondrial physiology in the skeletal and cardiac muscles is altered in torrent ducks, <em>Merganetta armata</em>, from high altitudes in the Andes. <em>Journal of Experimental Biology</em>;</a><br>
-											<a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0174395" target="_blank">Maina <em>et al.</em>, 2017. Morphological and morphometric specializations of the lung of the Andean goose, <em>Chloephaga melanoptera</em>: a lifelong high altitude resident. <em>PLoS One</em>;</a><br>
-											<a href="https://jeb.biologists.org/content/222/7/jeb198622" target="_blank">Ivy <em>et al.</em>, 2019. Control of breathing and respiratory gas exchange in high-altitude ducks native to the Andes. <em>Journal of Experimental Biology</em>;</a><br>
-											<a href="https://jeb.biologists.org/content/223/5/jeb211250" target="_blank">Lague <em>et al.</em>, 2020. Cardiovascular responses to progressive hypoxia in ducks native to high altitude in the Andes. <em>Journal of Experimental Biology</em>;</a><br>
-											<a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/joa.13180" target="_blank">Bakkeren <em>et al.</em>, 2020. A morphometric analysis of the lungs of high‐altitude ducks and geese. <em>Journal of Anatomy</em>;</a><br>
-											</li>
-											<li><strong>Respiratory physiology of bar-headed geese</strong>: <br>
-											<a href="https://elifesciences.org/articles/44986" target="_blank">Meir <em>et al.</em>, 2019. Reduced metabolism supports hypoxic flight in the high-flying bar-headed goose (<em>Anser indicus</em>). <em>eLife</em>.</a><br>
-											Selected press: <a href="https://news.ubc.ca/2019/09/03/slowed-metabolism-helps-geese-fly-high/" target="_blank">Press release</a>, 
-											<a href="https://www.nytimes.com/2019/09/03/science/bar-headed-geese-oxygen.html" target="_blank">New York Times</a>, 
-											<a href="https://www.washingtonpost.com/science/2019/09/04/this-astronaut-raised-geese-study-their-hearts-birds-stole-hers/" target="_blank">Washington Post</a>, 
-											<a href="https://www.thetimes.co.uk/article/geese-above-everest-are-no-flight-of-fancy-5n5906g56" target="_blank">The Times of London</a>, 
-											<a href="https://www.sciencemag.org/news/2019/09/bird-really-can-fly-over-mount-everest-wind-tunnel-experiments-reveal" target="_blank">Science</a>, 
-											<a href="https://www.theatlantic.com/science/archive/2019/09/jessica-meir-the-astronaut-who-raised-geese/597346/" target="_blank">The Atlantic</a>, 
-											<a href="https://www.cbc.ca/news/canada/british-columbia/ubc-study-geese-nasa-1.5269140" target="_blank">CBC</a>, 
-											<a href="https://www.sciencedaily.com/releases/2019/09/190903123958.htm" target="_blank">Science Daily</a>, 
-											<a href="https://www.the-scientist.com/news-opinion/bar-headed-geese-slow-their-metabolism-to-soar-over-everest-66386" target="_blank">The Scientist</a>, 
-											<a href="https://www.scientificamerican.com/article/test-pilot-geese-planetary-wrecking-balls-and-super-ai-vision-the-weeks-best-science-gifs1/" target="_blank">Scientific American</a>, 
-											<a href="https://news.sky.com/story/sightings-of-geese-flying-over-mount-everest-may-be-true-scientists-say-11803349" target="_blank">Sky News</a><br>
-											Interview on Wired: <a href="https://www.youtube.com/watch?time_continue=1&v=lhQ8nRFox8U" target="_blank">Why these geese wear tiny backpacks and fly in a wind tunnel</a><br>
-											<a href="https://www.sciencedirect.com/science/article/pii/S1095643315000343?via%3Dihub" target="_blank">Dzal <em>et al.</em>, 2015. Oxygen in demand: how oxygen has shaped vertebrate physiology. <em>Comparative Biochemistry and Physiology Part A</em></a>
-											</li>
-											<li><strong>Limb-patterning genes in velvet worms</strong>: <br>
-											<a href="https://link.springer.com/article/10.1007/s00427-014-0466-z" target="_blank">Oliveira <em>et al.</em>, 2014. Expression of arthropod distal limb-patterning genes in the onychophoran <em>Euperipatoides kanangrensis</em>. <em>Development Genes and Evolution</em>.</a>
-											</li>
-										</ul>
-										</article>
-									</div>
-								</div>
-							</section>
+<main id="top">
 
-						<!-- Two CV-->
-							<section id="two">
-									<div class="image main" data-position="center">
-									<img src="images/peru.jpg" alt="" />
-								</div>
-								<div class="container">
-									<h3>CV</h3>
-									<p>See my google scholar or download a copy of my most recently uploaded CV.</p>
-									<ul class="feature-icons">
-										<li class="icon solid fa-file-alt"><a href="JMYORK_CV_7-12-23.pdf" target="_blank">Download CV</a></li>
-										<li class="icon solid fa-graduation-cap"><a href="https://scholar.google.com/citations?hl=en&user=Um6EFW4AAAAJ" target="_blank">Google Scholar</li></a>
-										<li class="icon solid fa-external-link-alt"><a href="https://orcid.org/0000-0003-4947-0591" target="_blank">ORCiD</a></li>
-										<li class="icon brands fa-researchgate"><a href="https://www.researchgate.net/profile/Julia_York" target="_blank">ResearchGate</a></li>
-										<!-- <li class="icon solid fa-bolt">Lightning bolt</li>
-										<li class="icon solid fa-users">Shadow clone technique</li> -->
-									</ul>
-								</div>
-							</section>
+<!-- ============ HERO (big photo + research question) ============
+     EDIT: the background photo is set in style.css, search for "--hero-photo". -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-id">Dr. Julia M. York<br>
+      Postdoctoral Fellow, Department of Evolution, Ecology, and Behavior<br>
+      University of Illinois Urbana-Champaign</p>
+    <!-- EDIT: the headline -->
+    <h1>How does temperature sensation evolve in polar animals?</h1>
+    <p class="hero-lead">I study how TRP ion channels evolve to detect temperature in ectotherms, particularly Arctic and Antarctic fishes, and what that means for animals living in the fastest-changing thermal environments on Earth.</p>
+    <!-- EDIT: social/profile links -->
+    <ul class="hero-links">
+      <li><a href="https://scholar.google.com/citations?hl=en&user=Um6EFW4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://orcid.org/0000-0003-4947-0591">ORCID</a></li>
+      <li><a href="https://www.researchgate.net/profile/Julia_York">ResearchGate</a></li>
+      <li><a href="https://www.linkedin.com/in/julia-m-york-33bb1997/">LinkedIn</a></li>
+      <li><a href="https://github.com/juliayork">GitHub</a></li>
+    </ul>
+  </div>
+</section>
 
-						<!-- Three -->
-							<section id="three">
-								<div class="image main" data-position="center">
-									<img src="images/ants.jpg" alt="" />
-								</div>
-								<div class="container">
-									<header class="major">
-										<h3>Engagement</h3>
-									</header>
-									<p>As a scientist, I sometimes feel conflicted about the role of researchers in publicizing their science and engaging with the public. 
-									Doing the science is a full time job, and the skills that make someone a good scientist do not entirely overlap with the skills involved in being a good communicator. 
-									I recognize, however, that with the current scientific system there is value for both the public and the scientist when communication between these groups increases. 
-									Below is a summary of some of my efforts to increase that communication.</p>
-										<div class="features">
-											<article>
-												<a href="#" class="image"><img src="images/suts.png" alt="" /></a>
-												<div class="inner">
-													<h4>Science Under the Stars</h4>
-													<p>At UT Austin I helped organize a series of monthly science talks called <a href="https://scienceunderthestars.org/" target="_blank">Science Under the Stars</a> between 2017 and 2022. Events are free, open to the public, and held outdoors at <a href="https://bfl.utexas.edu/" target="_blank">Brackenridge Field Laboratory</a>. 
-													The speakers are biology graduate students who <a href="https://scienceunderthestars.org/previous-talks/" target="_blank">share work ranging</a> from bat behavior to tropical tree evolution to flu epidemiology and sustainable gardening. 
-													Events also include kids activities, snacks, natural history displays, and tours of the field lab. 
-												</div>
-											</article>
-											<article>
-												<a href="#" class="image"><img src="images/ASA_logo.png" alt="" /></a>
-												<div class="inner">
-													<h4>Austin Science Advocates</h4>
-													<p><a href="https://austinscienceadvocates.wordpress.com/" target="_blank">Austin Science Advocates</a> was a group of graduate students in the College of Natural Sciences that 
-													 discussed science policy news, conducted deep dives into particular issues, practiced skills related to discussing and debating science policy issues, 
-													 and hosted guest speakers. Check out the website archive for more information.
-													 <br>
-													 For example, in 2017, we <a href="https://austinscienceadvocates.wordpress.com/2017/02/15/texas-state-board-of-education-votes-to-maintain-confusing-language-in-state-science-standards/" target="_blank">testified for the state board of education</a> while they debated streamlining of the K-12 science curriculum standards in Texas.</p>
-												</div>
-											</article>
-												<h4>Science Communication Training</h4>
-												<p>A summary of courses or programs in which I've participated and can recommend for developing communication skills:</p>
-												<ul>
-													<li><a href="https://massivesci.com/consortium/" target="_blank">Join the scientific consortium at MassiveScience</a>. I was part of the 2017 Climate Cohort and published two articles: <br>
-														<a href="https://massivesci.com/articles/alaska-climate-change-oilfield-caribou/" target="_blank">Alaska’s oilfield has been subtly changing the state’s environment for decades. Will Congress notice?</a>
-														<br><a href="https://massivesci.com/articles/climate-change-taught-schools-creationism-evolution/" target="_blank">Creationism helped push climate skepticism into classrooms</a>
-														</li>
-													<li><a href="https://cns.utexas.edu/graduate-education/graduate-courses/cns-electives#SciComm" target="_blank">Concentration in science communication</a> at UT Austin, taught by <a href="http://anthonydudo.com/" target="_blank">Dr. Anthony Dudo</a>.</li>
-													<li><a href="https://www.aibs.org/public-policy/communications_boot_camp.html" target="_blank">Communications Boot Camp for Scientists</a> by the American Institute of Biological Sciences</li>
-													<li>2018 <a href="https://www.aibs.org/public-policy/congressional_visits_day.html" target="_blank">Congressional Visits Day</a> with <a href="https://www.aibs.org/home/index.html" target="_blank">AIBS</a>, read more about <a href="https://austinscienceadvocates.wordpress.com/2017/06/29/congressional-visits-day-part-1-preparation-and-training/" target="_blank">that experience here</a></li>
-													<li><a href="https://olli.utexas.edu/forum" target="_blank">UT Forum</a> speaker</li>
-													<li><a href="https://www.aaas.org/programs/classroom-science-days" target="_blank">AAAS Classroom Science Days</a>: I spoke to a group of fourth grade science students about geese and why they migrate, <a href="https://www.aaas.org/news/aaas-connects-scientists-and-students-classroom-science-days" target="_blank">more information here</a></li>
-													<li>Edward Tufte's <a href="https://www.edwardtufte.com/tufte/courses" target="_blank">Presenting Data and Information Course</a></li>
-												</ul>
-											</article>
-								</div>
-							</section>
+<!-- ============ RESEARCH ============ -->
+<section id="research" class="section">
+  <div class="wrap">
+    <h2>Research</h2>
+    <p class="intro">How does thermosensation evolve? As thermal environments shift, how do sensory systems adapt? I investigate TRP channels, a family of ion channels that act as molecular thermosensors by turning temperature into electrical signals. I combine transcriptomics, genomics, bioinformatics, electrophysiology, fieldwork, and behavior to answer this across levels of organization, in both vertebrates and invertebrates.</p>
 
-						<!-- Four -->
-							<section id="four">
-								<div class="image main" data-position="center">
-									<img src="images/junin.JPG" alt="" />
-								</div>
-								<div class="container">
-									<header class="major">
-										<h3>Inclusion</h3>
-									</header>
-									<p>If you are a scientist, you know academia is often touted as a meritocracy, but systemically prevents women and other marginalized people from participating due to inherent biases, a lack of representation, and fewer available resources. 
-									I am working to combat these inequities with the efforts below. 
-									Please contact me if you have questions or concerns about these projects.</p>
-									<div class="features">
-										<article>
-											<h4>Published work and press</h4>
-											<ul>
-												<li>Kelly Wallace and I <a href="https://onlinelibrary.wiley.com/doi/10.1002/ece3.6817" target="_blank">published a paper</a> proposing a systems change framework for evaluating academic equity efforts. 
-												The paper was published in the academic practice section of Ecology & Evolution</li>
-												<li>The Chronicle of Higher Education <a href="https://www.chronicle.com/article/How-a-Department-Took-On-the/245050" target="_blank">published an article</a> on some of the work discussed below in 2018</li>
-											</ul>
-										<article>
-											<h4>Committees and working groups</h4>
-											<p>I have served on:</p>
-											<ul class="feature-icons">
-												<li class="icon solid fa-file-alt">College of Natural Sciences <a href="https://cns.utexas.edu/diversity/d-i-committee" target="_blank">Diversity, Equity, and Inclusion Committee</a></li>
-												<li class="icon solid fa-file-alt">Department of Integrative Biology <a href="https://integrativebio.utexas.edu/about/diversity-inclusivity-mission-statement" target="_blank">Diversity and Inclusivity Committee</a></li>
-												<li class="icon solid fa-file-alt">UT Austin <a href="https://misconductworkinggroup.utexas.edu/" target="_blank">Sexual Misconduct Working Group</a></li>
-											</ul>
-										</article>
-										<article>
-											<h4>Climate survey</h4>
-											<p>I organized a climate survey to empirically assess the experiences of the Integrative Biology Department community while at UT Austin. 
-											We conducted the survey in spring 2018, then revised it with assistance from the UT Sociology Department and established it as an annual survey initially in fall 2020.
-											Please feel free to download and use the survey in your own workplace.</p>
-											<ul class="feature-icons">
-												<li class="icon solid fa-file-alt"><a href="IB Climate Survey_2020_coronavirus_13Sept2020.pdf" target="_blank">Download 2020 Survey</a></li>
-										</article>
-										<article>
-											<h4>Equity and Inclusion Discussion Group</h4>
-											<p>I initiated the founding of an <a href="https://integrativebio.utexas.edu/about/diversity-inclusivity-mission-statement" target="_blank">Equity and Inclusion Discussion Group</a> within the Integrative Biology Department; it was modeled on a similar group in the Astronomy Department.
-											It is led by a cross-hierarchical team.
-											If you are associated with the IB Department, you can read <a href="images/IB E&I discussion group ground rules.pdf" target="_blank">the ground rules for the group here</a> and sign up for <a href="https://utlists.utexas.edu/sympa/info/ib_diversity" target="_blank">the listserv here</a>.</p>
-										</article>
-										<article>
-											<h4>Other work</h4>
-												<ul>
-												<li>We have passed a <a href="/images/IBGraduateStudentBillofRights.pdf" target="_blank">Graduate Student Bill of Rights</a> for students whose professors are associated with the IB Department</li>
-												<li>I organized a Bystander Intervention Training with Marian Trattner and <a href="https://www.wellnessnetwork.utexas.edu/BeVocal/index.html" target="_blank">BeVocal</a> and Personnel Management training for members of the Integrative Biology Department</li>
-												<li>I established a <a href="https://hr.utexas.edu/current/services/lactation-quiet-room-locations" target="_blank">Quiet/Lactation room</a> in Patterson Labs (PAT 339)</li>
-												<li>We re-signed the single stall bathrooms in the department as gender neutral (1st floor PAT, 3rd floor BIO)</li>
-												</ul>
-									</div>
-								</div>
-							</section>
+    <!--
+      EACH PROJECT = one <article class="project">.
+      To add a project: copy a whole <article> ... </article> block and paste it below.
+      Add class "flip" (class="project flip") to put the photo on the right instead of the left.
+      The two main polar projects get the "featured" class, which gives them a teal edge.
+    -->
 
-						<!-- Five -->
-							<section id="five">
-								<div class="image main" data-position="center">
-									<img src="images/new mexico.jpg" alt="" />
-								</div>
-								<div class="container">
-									<header class="major">
-										<h3>About</h3>
-									</header>
-									<p>I am currently a postdoctoral fellow in the Department of Evolution, Ecology, and Behavior at the University of Illinois Urbana-Champaign in the lab of Dr. Chris Cheng. 
-									Our lab is associated with the School of Integrative Biology. 
-									In 2022, I received my PhD in Ecology, Evolution, and Behavior at the University of Texas at Austin in the lab of Dr. Harold Zakon.
-									In 2016, I received my Master’s of Science at the University of British Columbia, where I was co-supervised by Dr. Bill Milsom and Dr. Doug Altshuler. 
-									I was also an undergraduate at the University of British Columbia and worked in the Milsom lab. 
-									I grew up in Fairbanks, Alaska, where I used to help my dad trap arctic ground squirrels and catch wood frogs. Now I live in Urbana, Illinois. 
-									I use she/her/hers pronouns.</p>
-								</div>
-							</section>
-							
-						<!-- Six -->
-							<section id="six">
-								<div class="image main" data-position="center">
-									<img src="images/alcatraz.jpg" alt="" />
-								</div>
-								<div class="container">
-									<h3>Contact Me</h3>
-									<p>Questions about any of this work? Can’t access the papers? <a href="https://sib.illinois.edu/eeb/students" target="_blank">Contact me!</a></p>
-									<!-- <form method="post" action="#">
-										<div class="row gtr-uniform">
-											<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-											<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-											<div class="col-12"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
-											<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
-											<div class="col-12">
-												<ul class="actions">
-													<li><input type="submit" class="primary" value="Send Message" /></li>
-													<li><input type="reset" value="Reset Form" /></li>
-												</ul>
-											</div>
-										</div>
-									</form> -->
-								</div>
-							</section>
+    <!-- PROJECT 1: Arctic codfishes -->
+    <article class="project featured">
+      <figure>
+        <!-- EDIT: photo filename and alt text (alt = description for screen readers) -->
+        <img src="images/PRF%20graphical%20abstract_new%20arrow.png" alt="Graphical abstract of the Arctic codfish TRP channel project">
+      </figure>
+      <div>
+        <h3>Arctic codfishes</h3>
+        <p>Some areas of the Arctic Ocean are warming at up to seven times the global average, endangering key subsistence and commercial fisheries. I study the evolution of TRP channel sequences, expression, and structures in thermosensory tissues across Arctic codfishes that differ in their preferred thermal environments.</p>
+        <p class="funding">Funded by an NSF Office of Polar Programs postdoctoral research fellowship.</p>
+      </div>
+    </article>
 
-						<!-- Five -->
-						<!--
-							<section id="five">
-								<div class="container">
-									<h3>Elements</h3>
+    <!-- PROJECT 2: Notothenioids -->
+    <article class="project featured flip">
+      <figure>
+        <img src="images/H%20antarcticus%201.jpg" alt="Harpagifer antarcticus, the Antarctic spiny plunderfish">
+        <figcaption><em>Harpagifer antarcticus</em>, the Antarctic spiny plunderfish</figcaption>
+      </figure>
+      <div>
+        <h3>Antarctic notothenioid fishes</h3>
+        <p>Notothenioids make up most of the fish fauna around Antarctica, where water has stayed between -1.9 and +4 °C for millions of years. I am investigating how TRP channels evolved to sense these temperatures, and comparing species that have secondarily adapted to temperate environments.</p>
+        <p class="funding">Funded by the Fulbright Commission; work at the Universidad Austral de Chile and in the Chilean Antarctic.</p>
+        <!-- EDIT: a paper link for this project -->
+        <p class="paper"><a href="https://doi.org/10.1101/2025.10.11.681823">York <em>et al.</em> In review. Chromosomal-level genome assemblies of Antarctic <em>Notothenia coriiceps</em> and temperate relative <em>Paranotothenia angustata</em>. <em>Scientific Data</em> (preprint).</a></p>
+        <p class="paper"><a href="https://doi.org/10.1098/rsob.230215">York, 2023. Temperature activated transient receptor potential ion channels from Antarctic fishes. <em>Open Biology.</em></a></p>
+        <p class="paper"><a href="https://academic.oup.com/gbe/article/14/2/evac009/6519823">York and Zakon, 2022. Evolution of TRP ion channels in Antarctic fishes (Cryonotothenioidea) and identification of putative thermosensors. <em>Genome Biology and Evolution.</em></a></p>
+      </div>
+    </article>
 
-									<section>
-										<h4>Text</h4>
-										<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-										This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-										This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-										<hr />
-										<header>
-											<h4>Heading with a Subtitle</h4>
-											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-										</header>
-										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-										<header>
-											<h5>Heading with a Subtitle</h5>
-											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-										</header>
-										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-										<hr />
-										<h2>Heading Level 2</h2>
-										<h3>Heading Level 3</h3>
-										<h4>Heading Level 4</h4>
-										<h5>Heading Level 5</h5>
-										<h6>Heading Level 6</h6>
-										<hr />
-										<h5>Blockquote</h5>
-										<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-										<h5>Preformatted</h5>
-										<pre><code>i = 0;
+    <!-- PROJECT 3: Leaf-cutter ants -->
+    <article class="project featured">
+      <figure>
+        <img src="images/pic02.jpg" alt="Entrance to an Atta texana colony">
+        <figcaption>An entrance to an <em>Atta texana</em> colony</figcaption>
+      </figure>
+      <div>
+        <h3>Texas leaf-cutter ants</h3>
+        <p><em>Atta texana</em> is the most northerly leaf-cutter ant. Its range is limited not by the ants’ own tolerance, but by the cold sensitivity of the fungus they farm. What is the molecular basis of the ants’ sensitivity to the fungus’s narrow optimal temperature range, and how has it changed as they expanded north?</p>
+        <!-- EDIT: a paper link for this project -->
+        <p class="paper"><a href="https://doi.org/10.1111/1744-7917.13364">York <em>et al.</em> 2024. Hymenopteran-specific TRPA channel from the Texas leaf cutter ant (<em>Atta texana</em>) is heat and cold activated and expression correlates with environmental temperature</em>. <em>Insect Science.</em></a></p>
+      </div>
+    </article>
 
-while (!deck.isInOrder()) {
-    print 'Iteration ' + i;
-    deck.shuffle();
-    i++;
-}
+    <!--
+      NEW PHOTOS: to add a photo gallery of the fieldwork you uploaded, put the filenames below.
+      Delete this whole block if you don't want a gallery.
+    -->
+    <div class="gallery">
+      <!-- EDIT: replace these filenames with your new photo filenames from the images folder -->
+      <figure><img src="images/Boreogadus%20saida.jpg" alt="Boreogadus saida" loading="lazy"></figure>
+      <figure><img src="images/Egracilis.jpg" alt="Eleginus gracilis" loading="lazy"></figure>
+      <figure><img src="images/sculpin.jpg" alt="Fourhorn sculpin" loading="lazy"></figure>
+      <figure><img src="images/Entrevista%20UMag%201.jpg" alt="Interview with UMag" loading="lazy"></figure>
+      <figure><img src="images/Field%20collections%20Punta%20Arenas%201.jpg" alt="Punta Arenas fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/Fishing%20O'Higgins%204.jpg" alt="Antarctica fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/Gentoo%20colony.jpg" alt="Gentoo colony" loading="lazy"></figure>
+      <figure><img src="images/IDEAL%20group.jpg" alt="Antarctic IDEAL photo" loading="lazy"></figure>
+      <figure><img src="images/Lebu%20beach.jpg" alt="Chile fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/O'Higgins%20military%20and%20scientists%202.jpg" alt="Antarctic fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/On%20the%20continent%204.jpg" alt="Antarctic fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/Presenting%20for%20Chilean%20military%202.jpg" alt="Presenting in Antarctica photo" loading="lazy"></figure>
+      <figure><img src="images/Punta%20Arenas%20sunset.jpg" alt="Punta Arenas photo" loading="lazy"></figure>
+      <figure><img src="images/fish_hole.jpg" alt="Nunavut fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/fyke%20net.jpg" alt="Alaska fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/image2.jpg" alt="Nunavut fieldwork photo. Photo credit: Matt Gilbert" loading="lazy"></figure>
+      <figure><img src="images/Uros.jpg" alt="Uros photo" loading="lazy"></figure>
+      <figure><img src="images/Peru_with_duck_2025.jpg" alt="Peru fieldwork photo" loading="lazy"></figure>
+      <figure><img src="images/Caracol%20negro.jpg" alt="Caracol negro photo" loading="lazy"></figure>
+      <figure><img src="images/Doing%20electrophysiology.jpg" alt="Electrophysiology photo" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
 
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-									</section>
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications" class="section tinted">
+  <div class="wrap narrow">
+    <h2>Selected publications</h2>
+    <!-- EDIT: add a paper by copying one <li> ... </li> line. Newest first. Links use doi.org + the DOI from your CV. -->
+    <ul class="pubs">
+      <li><a href="https://doi.org/10.1242/jeb.250889">*Currie and *York. 2026. Temperature sensing in fishes: mechanisms and modulation in a warming world. <em>Journal of Experimental Biology</em> 229(1): jeb250889</a></li>
+      <li><a href="https://doi.org/10.1111/jfb.70444">Caccavo <em>et al.</em> 2026. SCARFISH: a new SCAR Action Group to coordinate Antarctic fish research. <em>Journal of Fish Biology</em></a></li>
+      <li><a href="https://doi.org/10.1111/1744-7917.13364">York <em>et al.</em> 2024. Hymenopteran specific TRPA channel from the Texas leaf cutter ant (<em>Atta texana</em>) is heat and cold activated and expression correlates with environmental temperature. <em>Insect Science</em> 32: 301-320</a></li>
+      <li><a href="https://doi.org/10.1098/rsob.230215">York. 2023. Temperature activated transient receptor potential ion channels from Antarctic fishes. <em>Open Biology</em> 13(10): 230215</a></li>
+      <li><a href="https://doi.org/10.1186/s12915-023-01637-8">York <em>et al.</em> 2023. A potential cost of evolving epibatidine resistance in poison frogs. <em>BMC Biology</em> 21: 144</a></li>
+      <li><a href="https://doi.org/10.1093/gbe/evac009">York and Zakon. 2022. Evolution of transient receptor potential (TRP) ion channels in Antarctic fishes (Cryonotothenioidea) and identification of putative thermosensors. <em>Genome Biology and Evolution</em> 14(2): evac009</a></li>
+      <li><a href="https://doi.org/10.1002/ece3.6817">*Wallace and *York. 2020. A systems change framework for evaluating academic equity and inclusion in an ecology &amp; evolution graduate program. <em>Ecology &amp; Evolution</em> 10: 10922-10929</a></li>
+      <li><a href="https://doi.org/10.7554/eLife.44986">Meir <em>et al.</em> 2019. Reduced metabolism and increased O<sub>2</sub> pulse enable hypoxic flight in the bar-headed goose. <em>eLife</em></a></li>
+      <li><a href="https://doi.org/10.1242/jeb.170738">York <em>et al.</em> 2018. Respiratory mechanics and morphology of Tibetan and Andean high-altitude geese with divergent life history. <em>Journal of Experimental Biology</em> 221(1): jeb170738 (shortlisted for the JEB Outstanding Paper Prize of 2018)</a></li>
+      <li><a href="https://doi.org/10.1016/j.cub.2018.05.012">Swapna <em>et al.</em> 2018. Electrostatic tuning of a potassium channel in electric fish. <em>Current Biology</em> 28(13): 2094-2102</a></li>
+    </ul>
+    <p>* indicates equal contribution. <a href="https://scholar.google.com/citations?hl=en&user=Um6EFW4AAAAJ">See the full list on Google Scholar.</a></p>
+  </div>
+</section>
 
-									<section>
-										<h4>Lists</h4>
-										<div class="row">
-											<div class="col-6 col-12-xsmall">
-												<h5>Unordered</h5>
-												<ul>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Sagittis adipiscing lorem eleifend.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ul>
-												<h5>Alternate</h5>
-												<ul class="alt">
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Sagittis adipiscing lorem eleifend.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ul>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<h5>Ordered</h5>
-												<ol>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Etiam vel felis at lorem sed viverra.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-													<li>Dolor pulvinar etiam magna etiam.</li>
-													<li>Etiam vel felis at lorem sed viverra.</li>
-													<li>Felis enim feugiat dolore viverra.</li>
-												</ol>
-												<h5>Icons</h5>
-												<ul class="icons">
-													<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-													<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-													<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-													<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-													<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-													<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
-												</ul>
-											</div>
-										</div>
-										<h5>Actions</h5>
-										<ul class="actions">
-											<li><a href="#" class="button primary">Default</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt">Default</a></li>
-										</ul>
-										<ul class="actions small">
-											<li><a href="#" class="button primary small">Small</a></li>
-											<li><a href="#" class="button small">Small</a></li>
-											<li><a href="#" class="button alt small">Small</a></li>
-										</ul>
-										<div class="row">
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary">Default</a></li>
-													<li><a href="#" class="button">Default</a></li>
-													<li><a href="#" class="button alt">Default</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6 col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary small">Small</a></li>
-													<li><a href="#" class="button small">Small</a></li>
-													<li><a href="#" class="button alt small">Small</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary fit">Default</a></li>
-													<li><a href="#" class="button fit">Default</a></li>
-													<li><a href="#" class="button alt fit">Default</a></li>
-												</ul>
-											</div>
-											<div class="col-3 col-6-medium col-12-xsmall">
-												<ul class="actions stacked">
-													<li><a href="#" class="button primary small fit">Small</a></li>
-													<li><a href="#" class="button small fit">Small</a></li>
-													<li><a href="#" class="button alt small fit">Small</a></li>
-												</ul>
-											</div>
-										</div>
-									</section>
+<!-- ============ CV ============ -->
+<section id="cv" class="section">
+  <div class="wrap">
+    <h2>CV and highlights</h2>
+    <!-- EDIT: IMPORTANT. Upload the PDF to the main folder of your repo and make this filename match EXACTLY (case-sensitive). -->
+    <p><a class="button" href="JMYork_CV_30Oct2026.pdf">Download full CV (PDF)</a></p>
 
-									<section>
-										<h4>Table</h4>
-										<h5>Default</h5>
-										<div class="table-wrapper">
-											<table>
-												<thead>
-													<tr>
-														<th>Name</th>
-														<th>Description</th>
-														<th>Price</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Item One</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Two</td>
-														<td>Vis ac commodo adipiscing arcu aliquet.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Three</td>
-														<td> Morbi faucibus arcu accumsan lorem.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Four</td>
-														<td>Vitae integer tempus condimentum.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Five</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td colspan="2"></td>
-														<td>100.00</td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
+    <!-- Four short lists in a responsive grid. Add a line by copying one <li>. Add a block by copying a <div>. -->
+    <div class="cv-grid">
+      <div>
+        <h3>Awards and fellowships</h3>
+        <ul>
+          <li>2024 Postdoctoral Research Fellowship, NSF Office of Polar Programs</li>
+          <li>2023 Fulbright Scholar Award, Universidad Austral de Chile</li>
+          <li>2022 Early Career Award, NSF Biological Adaptations to Environmental Change in Antarctica training grant</li>
+          <li>2020 Stengl-Wyer Graduate Fellowship, UT Austin</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Teaching</h3>
+        <ul>
+          <li>Instructor of record, Evolution of traits and genomes, UIUC (Spring 2025)</li>
+          <li>Guest lecturer: Organismal physiology, UIUC (2026); Physiology of humans, New Mexico State (2024)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Recent invited talks</h3>
+        <ul>
+          <li>2025 Lewis and Clark University, Portland, Oregon</li>
+          <li>2024 Society for Neuroscience, Chicago</li>
+          <li>2024 University of Alaska Fairbanks Life Science Seminar</li>
+          <li>2024 Base Militar Bernardo O’Higgins, Antarctica</li>
+          <li>2023 EEB Colloquium, University of Illinois Urbana-Champaign</li>
+        </ul>
+      </div>
+      <div>
+        <h3>In the media</h3>
+        <ul>
+          <li><a href="https://doi.org/10.1242/jeb.251461">ECR Spotlight, <em>Journal of Experimental Biology</em></a> (2026)</li>
+          <li><a href="https://usscar.org/us-antarctic-interview-series/julia-york">US SCAR Interview Series</a> (2025)</li>
+          <li><a href="https://www.youtube.com/watch?v=WoHFQRlUjp4">Universidad de Magallanes TV: Alba Terra: gigantes de la Antartica</a> (2024)</li>
+          <li><a href="https://www.youtube.com/watch?v=lhQ8nRFox8U">Wired: Why these geese wear tiny backpacks and fly in a wind tunnel</a> (2019)</li>
+          <li><a href="https://www.nytimes.com/2019/09/03/science/bar-headed-geese-oxygen.html">New York Times: These high flying geese are "the astronauts of the bird world"</a> (2019)</li>
+          <li><a href="https://www.thetimes.com/uk/science/article/geese-above-everest-are-no-flight-of-fancy-5n5906g56">The Times of London: Geese above Everest are no flight of fancy</a> (2019)</li>
+        </ul>
+      </div>
+<!--    </div>
+    <p>Profiles: <a href="https://scholar.google.com/citations?hl=en&user=Um6EFW4AAAAJ">Google Scholar</a>, <a href="https://orcid.org/0000-0003-4947-0591">ORCID</a>, <a href="https://www.researchgate.net/profile/Julia_York">ResearchGate</a>.</p>
+  </div>-->
+</section>
 
-										<h5>Alternate</h5>
-										<div class="table-wrapper">
-											<table class="alt">
-												<thead>
-													<tr>
-														<th>Name</th>
-														<th>Description</th>
-														<th>Price</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Item One</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Two</td>
-														<td>Vis ac commodo adipiscing arcu aliquet.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Three</td>
-														<td> Morbi faucibus arcu accumsan lorem.</td>
-														<td>29.99</td>
-													</tr>
-													<tr>
-														<td>Item Four</td>
-														<td>Vitae integer tempus condimentum.</td>
-														<td>19.99</td>
-													</tr>
-													<tr>
-														<td>Item Five</td>
-														<td>Ante turpis integer aliquet porttitor.</td>
-														<td>29.99</td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td colspan="2"></td>
-														<td>100.00</td>
-													</tr>
-												</tfoot>
-											</table>
-										</div>
-									</section>
+<!-- ============ ENGAGEMENT & SERVICE (shortened; add your longer text back as you like) ============ -->
+<section id="engagement" class="section tinted">
+  <div class="wrap narrow">
+    <h2>Engagement and Service</h2>
+    <h3>Engagement</h3>
+    <ul>
+      <li>2025 Science Uncorked (AWIS), Champaign, Illinois: <em>Frozen ocean: polar fish evolution and our changing world.</em></li>
+      <li>2024 and 2025 Community talks in Utqiagvik, Alaska, including <em>How do we sense changing temperatures?</em> and Salmon ’n Science.</li>
+      <li>2023 El Día de Antártica, Valdivia, Chile: <em>Los Peces de Antártica</em></li>
+      <li><a href="https://scienceunderthestars.org/">Science Under the Stars</a>: I helped organize this free, outdoor monthly science talk series at UT Austin from 2017 to 2022.</li>
+      <li>Advocacy: <a href="https://austinscienceadvocates.wordpress.com/">Austin Science Advocates</a>: a graduate student group practicing science policy discussion, including testimony to the Texas State Board of Education.</li>
+      <li>Science Communication: member of the climate change cohort with <a href="https://massivesci.com/consortium/">MassiveScience</a>, plus training through AIBS, AAAS, and UT Austin’s science communication concentration.</li>
+    </ul>
+    <h3>Service</h3>
+    <ul>
+      <li>Co-lead, Genomics, physiology, and pathology working group of <a href="https://scar.org/science/life/scarfish">SCARFISH</a> (Scientific Committee on Antarctic Research), 2024-present.</li>
+      <p class="paper"><a href="https://doi.org/10.1111/jfb.70444">Caccavo <em>et al</em>, 2026. SCARFISH: a new SCAR Action Group to coordinate Antarctic fish research</em>. <em>Journal of Fish Biology.</em></a></p>
+      <p class="paper"><a href="https://doi.org/10.1111/jfb.70652">Lee <em>et al</em>, 2026. Adaptation to extreme environments: a review of Antarctic fish physiology. <em>Journal of Fish Biology.</em></a></p>
+      <li>Organizer of SCAR Open Science Conference sessions on Antarctic ectotherm resilience (Pucón, 2024) and Antarctic genomics (Oslo, 2026).</li>
+      <li>Panel reviewer for the NSF Office of Polar Programs Postdoctoral Research Fellowship (2024); peer reviewer for <em>Science</em>, <em>PNAS</em>, <em>eLife</em>, and <em>Journal of Experimental Biology</em>, among others.</li>
+      <li>At UT Austin, I served on the equity & inclusion committees for both the department and college, as well as the Provost's Sexual Misconduct working group advising on university-level Title IX policy changes. I developed a climate survey, helped pass a graduate student bill of rights, organized bystander and personnel management trainings, established a quiet/lactation room, reformed admission processes, initiated a strategic plan for equity, and secured funding for a recruitment group run by students to help underrepresented students join research labs. We published some of this work in a paper in <em>Ecology & Evolution</em>, and it was also highlighted in an article in the <em>Chronicle of Higher Education.</em></li>
+      <p class="paper"><a href="https://doi.org/10.1002/ece3.6817">Wallace and York, 2024. A systems change framework for evaluating academic equity and inclusion in an ecology & evolution graduate program</em>. <em>Ecology & Evolution.</em></a>
+      <p class="paper"><a href="https://www.chronicle.com/article/how-a-department-took-on-the-next-frontier-in-the-metoo-movement/">Ellis and Brown, 2018. How a department took on the next frontier in the #MeToo movement</em>. <em>The Chronicle of Higher Education.</em></a>
+    </ul>
+  </div>
+</section>
 
-									<section>
-										<h4>Buttons</h4>
-										<ul class="actions">
-											<li><a href="#" class="button primary">Primary</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt">Alternate</a></li>
-										</ul>
-										<ul class="actions">
-											<li><a href="#" class="button primary large">Large</a></li>
-											<li><a href="#" class="button">Default</a></li>
-											<li><a href="#" class="button alt small">Small</a></li>
-										</ul>
-										<ul class="actions fit">
-											<li><a href="#" class="button primary fit">Fit</a></li>
-											<li><a href="#" class="button fit">Fit</a></li>
-											<li><a href="#" class="button alt fit">Fit</a></li>
-										</ul>
-										<ul class="actions fit small">
-											<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-											<li><a href="#" class="button fit small">Fit + Small</a></li>
-											<li><a href="#" class="button alt fit small">Fit + Small</a></li>
-										</ul>
-										<ul class="actions">
-											<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-											<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-											<li><a href="#" class="button alt icon solid fa-check">Icon</a></li>
-										</ul>
-										<ul class="actions">
-											<li><span class="button primary disabled">Primary</span></li>
-											<li><span class="button disabled">Default</span></li>
-											<li><span class="button alt disabled">Alternate</span></li>
-										</ul>
-									</section>
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section">
+  <div class="wrap about">
+    <!-- EDIT: your portrait -->
+    <img class="portrait" src="images/headshot_2026.jpg" alt="Portrait of Julia York">
+    <div>
+      <h2>About</h2>
+      <p>I am a postdoctoral fellow in the Department of Evolution, Ecology, and Behavior at the University of Illinois Urbana-Champaign, in the lab of Dr. Chris Cheng. I received my PhD in 2022 from the University of Texas at Austin (Dr. Harold Zakon), and my MSc in 2016 from the University of British Columbia (Drs. Bill Milsom and Doug Altshuler), where I was also an undergraduate.</p>
+      <p>I grew up in Fairbanks, Alaska, where I helped my dad trap arctic ground squirrels and catch wood frogs. Now I live in Urbana, Illinois, with my husband, twins, and a good dog named Pepper. I use she/her pronouns.</p>
+    </div>
+  </div>
+</section>
 
-									<section>
-										<h4>Form</h4>
-										<form method="post" action="#">
-											<div class="row gtr-uniform">
-												<div class="col-6 col-12-xsmall">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-												</div>
-												<div class="col-6 col-12-xsmall">
-													<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-												</div>
-												<div class="col-12">
-													<select name="demo-category" id="demo-category">
-														<option value="">- Category -</option>
-														<option value="1">Manufacturing</option>
-														<option value="1">Shipping</option>
-														<option value="1">Administration</option>
-														<option value="1">Human Resources</option>
-													</select>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-													<label for="demo-priority-low">Low Priority</label>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-normal" name="demo-priority">
-													<label for="demo-priority-normal">Normal Priority</label>
-												</div>
-												<div class="col-4 col-12-medium">
-													<input type="radio" id="demo-priority-high" name="demo-priority">
-													<label for="demo-priority-high">High Priority</label>
-												</div>
-												<div class="col-6 col-12-medium">
-													<input type="checkbox" id="demo-copy" name="demo-copy">
-													<label for="demo-copy">Email me a copy of this message</label>
-												</div>
-												<div class="col-6 col-12-medium">
-													<input type="checkbox" id="demo-human" name="demo-human" checked>
-													<label for="demo-human">I am a human and not a robot</label>
-												</div>
-												<div class="col-12">
-													<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-												</div>
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" value="Send Message" /></li>
-														<li><input type="reset" value="Reset" class="alt" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
-									</section>
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section tinted">
+  <div class="wrap narrow">
+    <h2>Contact</h2>
+    <p>Questions about any of this work? Can’t access a paper? <a href="mailto:jmy@illinois.edu">Email me.</a></p>
+    <p>Department of Evolution, Ecology, and Behavior<br>School of Integrative Biology<br>University of Illinois Urbana-Champaign<br>505 S Goodwin Avenue, Urbana, Illinois 61801</p>
+  </div>
+</section>
 
-									<section>
-										<h4>Image</h4>
-										<h5>Fit</h5>
-										<span class="image fit"><img src="images/banner.jpg" alt="" /></span>
-										<div class="box alt">
-											<div class="row gtr-50 gtr-uniform">
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
-												<div class="col-4"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
-											</div>
-										</div>
-										<h5>Left &amp; Right</h5>
-										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-									</section>
+</main>
 
-								</div>
-							</section>
-						-->
+<footer class="footer">
+  <!-- EDIT: footer text -->
+  <p>© Julia M. York. All rights reserved.</p>
+</footer>
 
-					</div>
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="container">
-							<ul class="copyright">
-								<li>&copy; Julia M. York. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</section>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+<script src="script.js"></script>
+</body>
 </html>
