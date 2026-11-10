@@ -154,3 +154,50 @@ figcaption { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
 
 /* Respect visitors who turn off animations in their system settings */
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ===== Gallery lightbox ===== */
+.gallery img { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: rgba(0, 0, 0, 0.88);
+}
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 75vh;
+  aspect-ratio: auto;
+  object-fit: contain;
+  cursor: default;
+}
+
+.lightbox-caption {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
