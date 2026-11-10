@@ -35,3 +35,54 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40% 0px -55% 0px' }); // triggers when a section crosses the middle of the screen
 
 sections.forEach((s) => observer.observe(s));
+
+/* ===== Gallery lightbox ===== */
+(function () {
+  var photos = document.querySelectorAll('.gallery img');
+  if (!photos.length) return;
+
+  var box = document.createElement('div');
+  box.className = 'lightbox';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.innerHTML =
+    '<button class="lightbox-close" aria-label="Close">&times;</button>' +
+    '<img alt="">' +
+    '<p class="lightbox-caption"></p>';
+  document.body.appendChild(box);
+
+  var bigImg = box.querySelector('img');
+  var caption = box.querySelector('.lightbox-caption');
+  var lastFocused = null;
+
+  function open(img) {
+    lastFocused = img;
+    bigImg.src = img.currentSrc || img.src;
+    bigImg.alt = img.alt;
+    // textContent shows captions as plain text.
+    // To allow <em> etc. in captions, change this to: caption.innerHTML = ...
+    caption.textContent = img.dataset.caption || img.alt || '';
+    box.classList.add('open');
+    box.querySelector('.lightbox-close').focus();
+  }
+
+  function close() {
+    box.classList.remove('open');
+    if (lastFocused) lastFocused.focus();
+  }
+
+  photos.forEach(function (img) {
+    img.tabIndex = 0;
+    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+    });
+  });
+
+  box.addEventListener('click', function (e) {
+    if (e.target !== bigImg && e.target !== caption) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && box.classList.contains('open')) close();
+  });
+})();
