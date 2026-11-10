@@ -38,7 +38,7 @@ sections.forEach((s) => observer.observe(s));
 
 /* ===== Gallery lightbox ===== */
 (function () {
-  var photos = document.querySelectorAll('.gallery img');
+  var photos = Array.prototype.slice.call(document.querySelectorAll('.gallery img'));
   if (!photos.length) return;
 
   var box = document.createElement('div');
@@ -47,21 +47,34 @@ sections.forEach((s) => observer.observe(s));
   box.setAttribute('aria-modal', 'true');
   box.innerHTML =
     '<button class="lightbox-close" aria-label="Close">&times;</button>' +
+    '<button class="lightbox-prev" aria-label="Previous photo">&#8249;</button>' +
+    '<button class="lightbox-next" aria-label="Next photo">&#8250;</button>' +
     '<img alt="">' +
-    '<p class="lightbox-caption"></p>';
+    '<p class="lightbox-caption"></p>' +
+    '<p class="lightbox-count"></p>';
   document.body.appendChild(box);
 
   var bigImg = box.querySelector('img');
   var caption = box.querySelector('.lightbox-caption');
+  var count = box.querySelector('.lightbox-count');
+  var current = 0;
   var lastFocused = null;
 
-  function open(img) {
-    lastFocused = img;
+  function show(i) {
+    // wrap around at both ends
+    current = (i + photos.length) % photos.length;
+    var img = photos[current];
     bigImg.src = img.currentSrc || img.src;
     bigImg.alt = img.alt;
     // textContent shows captions as plain text.
     // To allow <em> etc. in captions, change this to: caption.innerHTML = ...
-    caption.textContent = img.dataset.caption || img.alt || '';
+    caption.innerHTML = img.dataset.caption || img.alt || '';
+    count.textContent = (current + 1) + ' / ' + photos.length;
+  }
+
+  function open(i) {
+    lastFocused = photos[i];
+    show(i);
     box.classList.add('open');
     box.querySelector('.lightbox-close').focus();
   }
@@ -71,18 +84,58 @@ sections.forEach((s) => observer.observe(s));
     if (lastFocused) lastFocused.focus();
   }
 
-  photos.forEach(function (img) {
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+
+  // Open from the gallery
+  photos.forEach(function (img, i) {
     img.tabIndex = 0;
-    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('click', function () { open(i); });
     img.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
     });
   });
 
+  // Buttons
+  box.querySelector('.lightbox-close').addEventListener('click', close);
+  box.querySelector('.lightbox-prev').addEventListener('click', prev);
+  box.querySelector('.lightbox-next').addEventListener('click', next);
+
+  // Click the dark background to close
   box.addEventListener('click', function (e) {
-    if (e.target !== bigImg && e.target !== caption) close();
+    if (e.target === box) close();
   });
+
+  // Keyboard: Esc closes, arrows navigate
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && box.classList.contains('open')) close();
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
   });
+
+  // Swipe on touch screens
+  var startX = null;
+  box.addEventListener('touchstart', function (e) {
+    startX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+    startX = null;
+  }, { passive: true });
+
+  // Preload neighbors so the next photo appears instantly
+  box.addEventListener('transitionend', function () {});
+  function preload(i) {
+    var p = new Image();
+    p.src = photos[(i + photos.length) % photos.length].src;
+  }
+  var originalShow = show;
+  show = function (i) {
+    originalShow(i);
+    preload(current + 1);
+    preload(current - 1);
+  };
 })();
