@@ -135,6 +135,26 @@ sections.forEach((s) => observer.observe(s));
   var originalShow = show;
   show = function (i) {
     originalShow(i);
+
+     /* ===== Open external links (and PDFs) in a new tab ===== */
+(function () {
+  document.querySelectorAll('a[href]').forEach(function (a) {
+    var href = a.getAttribute('href');
+
+    // Skip in-page anchors (#research), email links, and phone links
+    if (href.charAt(0) === '#' ||
+        href.indexOf('mailto:') === 0 ||
+        href.indexOf('tel:') === 0) return;
+
+    var isExternal = a.hostname && a.hostname !== window.location.hostname;
+    var isPdf = /\.pdf($|\?)/i.test(a.pathname);
+
+    if (isExternal || isPdf) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+  });
+})();
     preload(current + 1);
     preload(current - 1);
   };
